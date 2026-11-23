@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Double-Ended Queue (Deque) Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>add / remove at both ends: <strong>O(1)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Double-Ended Queue (Deque) Visualizer</h2>
+            <span class="page-info-badge" title="Values can be added and removed at both the front and the rear, on a circular array. Add a whole number from 1 to 999.">i</span>
+            <p>Values can be added and removed at both the front and the rear, on a circular array.</p>
+            <div class="type-switch">
+                <label for="queueType">Queue type</label>
+                <select id="queueType" title="Choose a queue type to open its visualizer">
+                    <option value="queue.html">Simple Queue (Linear Queue)</option>
+                    <option value="circular_queue.html">Circular Queue</option>
+                    <option value="priority_queue.html">Priority Queue</option>
+                    <option value="deque.html" selected>Double-Ended Queue (Deque)</option>
+                </select>
+                <button class="btn primary" id="openQueueBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> Front</span>
+                <span><i class="dot orange"></i> Checking</span>
+                <span><i class="dot red"></i> Removed / error</span>
+                <span><i class="dot green"></i> Added</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="capacitySelect">Capacity</label>
+                <select id="capacitySelect">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="8" selected>8</option>
+                    <option value="10">10</option>
+                </select>
+
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="40"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="addFrontBtn" title="Add the value at the front">Add Front</button>
+            <button class="btn primary" id="addRearBtn" title="Add the value at the rear">Add Rear</button>
+            <button class="btn secondary" id="removeFrontBtn" title="Remove the value at the front">Remove Front</button>
+            <button class="btn secondary" id="removeRearBtn" title="Remove the value at the rear">Remove Rear</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="peekFrontBtn" title="Look at the front value">Peek Front</button>
+            <button class="btn ghost" id="peekRearBtn" title="Look at the rear value">Peek Rear</button>
+            <button class="btn ghost" id="isEmptyBtn" title="Is the deque empty?">isEmpty()</button>
+            <button class="btn ghost" id="sizeBtn" title="How many values are in the deque?">size()</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomBtn" title="Load a random deque">New Deque</button>
+            <button class="btn ghost" id="clearBtn" title="Empty the deque">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Add a whole number from 1 to 999. The deque holds up to 8 values.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">Deque.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class Deque {</span>
+<span class="code-line" data-line="2">    private int[] data;</span>
+<span class="code-line" data-line="3">    private int front = 0;</span>
+<span class="code-line" data-line="4">    private int size = 0;</span>
+<span class="code-line" data-line="5"></span>
+<span class="code-line" data-line="6">    Deque(int capacity) {</span>
+<span class="code-line" data-line="7">        data = new int[capacity];</span>
+<span class="code-line" data-line="8">    }</span>
+<span class="code-line" data-line="9"></span>
+<span class="code-line" data-line="10">    void addFront(int value) {</span>
+<span class="code-line" data-line="11">        if (size == data.length)</span>
+<span class="code-line" data-line="12">            throw new RuntimeException("Deque Overflow");</span>
+<span class="code-line" data-line="13">        front = (front - 1 + data.length) % data.length;</span>
+<span class="code-line" data-line="14">        data[front] = value;</span>
+<span class="code-line" data-line="15">        size++;</span>
+<span class="code-line" data-line="16">    }</span>
+<span class="code-line" data-line="17"></span>
+<span class="code-line" data-line="18">    void addRear(int value) {</span>
+<span class="code-line" data-line="19">        if (size == data.length)</span>
+<span class="code-line" data-line="20">            throw new RuntimeException("Deque Overflow");</span>
+<span class="code-line" data-line="21">        int rear = (front + size) % data.length;</span>
+<span class="code-line" data-line="22">        data[rear] = value;</span>
+<span class="code-line" data-line="23">        size++;</span>
+<span class="code-line" data-line="24">    }</span>
+<span class="code-line" data-line="25"></span>
+<span class="code-line" data-line="26">    int removeFront() {</span>
+<span class="code-line" data-line="27">        if (size == 0)</span>
+<span class="code-line" data-line="28">            throw new RuntimeException("Deque Underflow");</span>
+<span class="code-line" data-line="29">        int value = data[front];</span>
+<span class="code-line" data-line="30">        front = (front + 1) % data.length;</span>
+<span class="code-line" data-line="31">        size--;</span>
+<span class="code-line" data-line="32">        return value;</span>
+<span class="code-line" data-line="33">    }</span>
+<span class="code-line" data-line="34"></span>
+<span class="code-line" data-line="35">    int removeRear() {</span>
+<span class="code-line" data-line="36">        if (size == 0)</span>
+<span class="code-line" data-line="37">            throw new RuntimeException("Deque Underflow");</span>
+<span class="code-line" data-line="38">        int rear = (front + size - 1) % data.length;</span>
+<span class="code-line" data-line="39">        int value = data[rear];</span>
+<span class="code-line" data-line="40">        size--;</span>
+<span class="code-line" data-line="41">        return value;</span>
+<span class="code-line" data-line="42">    }</span>
+<span class="code-line" data-line="43"></span>
+<span class="code-line" data-line="44">    int peekFront() {</span>
+<span class="code-line" data-line="45">        if (size == 0)</span>
+<span class="code-line" data-line="46">            throw new RuntimeException("Deque is empty");</span>
+<span class="code-line" data-line="47">        return data[front];</span>
+<span class="code-line" data-line="48">    }</span>
+<span class="code-line" data-line="49"></span>
+<span class="code-line" data-line="50">    int peekRear() {</span>
+<span class="code-line" data-line="51">        if (size == 0)</span>
+<span class="code-line" data-line="52">            throw new RuntimeException("Deque is empty");</span>
+<span class="code-line" data-line="53">        return data[(front + size - 1) % data.length];</span>
+<span class="code-line" data-line="54">    }</span>
+<span class="code-line" data-line="55"></span>
+<span class="code-line" data-line="56">    boolean isEmpty() {</span>
+<span class="code-line" data-line="57">        return size == 0;</span>
+<span class="code-line" data-line="58">    }</span>
+<span class="code-line" data-line="59"></span>
+<span class="code-line" data-line="60">    int size() {</span>
+<span class="code-line" data-line="61">        return size;</span>
+<span class="code-line" data-line="62">    }</span>
+<span class="code-line" data-line="63">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Deque Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="queueBadge">3 / 8 used</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div id="ringView" class="ring-view"></div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value, then add or remove at either end.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Pointers</span>
+                <strong id="pointerInfo">front = 0</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <span class="step-chip" id="stepChip">Ready</span>
+            </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose a value, then add or remove at either end.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    A deque lets you work at both ends. front moves backwards for addFront and forwards for removeFront.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    Both ends wrap around the array, so no slot is wasted.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/ring_view.js"></script>
+<script src="js/deque.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

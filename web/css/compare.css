@@ -1,0 +1,142 @@
+/* =====================================
+   ALGORITHM COMPARISON STUDIO (AlgoLab)
+===================================== */
+
+.compare-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+@media (max-width: 992px) {
+    .compare-workspace {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+}
+
+.compare-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-height: 380px;
+}
+
+.compare-panel-head {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #f8fafc;
+}
+
+body.theme-dark .compare-panel-head {
+    background: #0b1224;
+}
+
+.compare-panel-body {
+    padding: 16px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow-y: auto;
+}
+
+.compare-bars-wrap {
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+body.theme-dark .compare-bars-wrap {
+    background: #0b1224;
+}
+
+.compare-bar {
+    flex: 1 1 0;
+    max-width: 45px;
+    min-width: 10px;
+    background: #6366f1;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 4px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    transition: height 0.2s ease, background 0.15s ease;
+}
+
+.compare-bar.comparing { background: #f59e0b; }
+.compare-bar.swapping { background: #ef4444; }
+.compare-bar.sorted { background: #16a34a; }
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.metric-pill {
+    padding: 8px 12px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+body.theme-dark .metric-pill {
+    background: #111c33;
+}
+
+.metric-pill span {
+    color: var(--muted);
+}
+
+.metric-pill strong {
+    color: var(--text);
+    font-family: Consolas, monospace;
+}
+
+.comparison-summary-card {
+    padding: 16px;
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body.theme-dark .comparison-summary-card {
+    background: #1e1b4b;
+    border-color: #3730a3;
+}
+
+.comparison-summary-card h4 {
+    font-size: 14px;
+    color: #312e81;
+    margin: 0;
+}
+
+body.theme-dark .comparison-summary-card h4 {
+    color: #c7d2fe;
+}

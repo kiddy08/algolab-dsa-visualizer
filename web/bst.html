@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Binary Search Tree Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="tree-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Average: <strong>O(log n)</strong></span>
+        <span>Worst: <strong>O(n)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Binary Search Tree Visualizer</h2>
+            <span class="tree-info-badge" title="Left subtree values < node < right subtree values — fast insert, search and delete. Enter a value (1–999, max 15 nodes). Duplicates are ignored.">i</span>
+            <p>Left subtree values &lt; node &lt; right subtree values — fast insert, search and delete.</p>
+
+            <div class="type-switch">
+                <label for="treeType">Tree type</label>
+                <select id="treeType" title="Choose a tree visualizer to open">
+                    <option value="bst.html" selected>Binary Search Tree</option>
+                    <option value="tree_traversals.html">Tree Traversals</option>
+                    <option value="heap.html">Min/Max Heap</option>
+                    <option value="avl_tree.html">AVL Tree</option>
+                    <option value="trie.html">Trie</option>
+                </select>
+                <button class="btn primary" id="openTreeBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot orange"></i> Current</span>
+                <span><i class="dot pink"></i> Compared path</span>
+                <span><i class="dot green"></i> New / Found</span>
+                <span><i class="dot purple"></i> Successor</span>
+                <span><i class="dot red"></i> Deleted / error</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Node value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="45"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+            <button class="btn ghost" id="randomValueBtn" title="Suggest another value">↻</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="insertBtn" title="Insert value into the BST">Insert</button>
+            <button class="btn ghost" id="searchBtn" title="Search for value in the BST">Search</button>
+            <button class="btn secondary" id="deleteBtn" title="Delete value from the BST">Delete</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="minBtn" title="Find minimum value">Min</button>
+            <button class="btn ghost" id="maxBtn" title="Find maximum value">Max</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="inorderBtn" title="Left, Root, Right">Inorder</button>
+            <button class="btn ghost" id="preorderBtn" title="Root, Left, Right">Preorder</button>
+            <button class="btn ghost" id="postorderBtn" title="Left, Right, Root">Postorder</button>
+            <button class="btn ghost" id="levelorderBtn" title="Breadth-First Level Order">Level-order</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomTreeBtn" title="Generate a random BST">New Random Tree</button>
+            <button class="btn ghost" id="clearBtn" title="Clear all nodes">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Enter a value from 1 to 999 (max 15 nodes). Duplicates are ignored.
+        </span>
+    </section>
+
+    <section class="workspace tree-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">BST.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class Node {</span>
+<span class="code-line" data-line="2">    int key;</span>
+<span class="code-line" data-line="3">    Node left, right;</span>
+<span class="code-line" data-line="4">    Node(int k) { key = k; }</span>
+<span class="code-line" data-line="5">}</span>
+<span class="code-line" data-line="6"></span>
+<span class="code-line" data-line="7">Node insert(Node node, int key) {</span>
+<span class="code-line" data-line="8">    if (node == null) return new Node(key);</span>
+<span class="code-line" data-line="9">    if (key &lt; node.key)</span>
+<span class="code-line" data-line="10">        node.left = insert(node.left, key);</span>
+<span class="code-line" data-line="11">    else if (key &gt; node.key)</span>
+<span class="code-line" data-line="12">        node.right = insert(node.right, key);</span>
+<span class="code-line" data-line="13">    return node; // duplicates ignored</span>
+<span class="code-line" data-line="14">}</span>
+<span class="code-line" data-line="15"></span>
+<span class="code-line" data-line="16">Node search(Node node, int key) {</span>
+<span class="code-line" data-line="17">    if (node == null || node.key == key)</span>
+<span class="code-line" data-line="18">        return node;</span>
+<span class="code-line" data-line="19">    if (key &lt; node.key)</span>
+<span class="code-line" data-line="20">        return search(node.left, key);</span>
+<span class="code-line" data-line="21">    return search(node.right, key);</span>
+<span class="code-line" data-line="22">}</span>
+<span class="code-line" data-line="23"></span>
+<span class="code-line" data-line="24">Node delete(Node node, int key) {</span>
+<span class="code-line" data-line="25">    if (node == null) return null;</span>
+<span class="code-line" data-line="26">    if (key &lt; node.key)</span>
+<span class="code-line" data-line="27">        node.left = delete(node.left, key);</span>
+<span class="code-line" data-line="28">    else if (key &gt; node.key)</span>
+<span class="code-line" data-line="29">        node.right = delete(node.right, key);</span>
+<span class="code-line" data-line="30">    else {</span>
+<span class="code-line" data-line="31">        if (node.left == null) return node.right;</span>
+<span class="code-line" data-line="32">        if (node.right == null) return node.left;</span>
+<span class="code-line" data-line="33">        Node succ = findMin(node.right);</span>
+<span class="code-line" data-line="34">        node.key = succ.key;</span>
+<span class="code-line" data-line="35">        node.right = delete(node.right, succ.key);</span>
+<span class="code-line" data-line="36">    }</span>
+<span class="code-line" data-line="37">    return node;</span>
+<span class="code-line" data-line="38">}</span>
+<span class="code-line" data-line="39"></span>
+<span class="code-line" data-line="40">Node findMin(Node node) {</span>
+<span class="code-line" data-line="41">    while (node.left != null) node = node.left;</span>
+<span class="code-line" data-line="42">    return node;</span>
+<span class="code-line" data-line="43">}</span>
+<span class="code-line" data-line="44"></span>
+<span class="code-line" data-line="45">void traverse(Node node) {</span>
+<span class="code-line" data-line="46">    if (node == null) return;</span>
+<span class="code-line" data-line="47">    // visit / recurse left &amp; right (or queue for BFS)</span>
+<span class="code-line" data-line="48">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: BST VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. BST Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="treeBadge">7 / 15 nodes · height 3</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="tree-canvas-wrap" id="treeCanvasWrap">
+                <svg id="treeSvg" class="tree-svg" width="680" height="300"></svg>
+            </div>
+
+            <div class="tree-aux-box">
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="visitedLabel">Visited order:</span>
+                    <div class="tree-aux-items" id="visitedBox">
+                        <span class="tree-aux-empty">Run a traversal or operation to see visited nodes.</span>
+                    </div>
+                </div>
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="structureLabel">Stack / Queue:</span>
+                    <div class="tree-aux-items" id="structureBox">
+                        <span class="tree-aux-empty">Idle</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value and click Insert, Search, Delete or a Traversal.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Tree state</span>
+                <strong id="pointerInfo">root = 50 · nodes = 7 · height = 3</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose an operation above to watch how the BST works.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    In a Binary Search Tree, values smaller than a node go to its left and larger values go to its right.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    Average time is O(log n) for balanced trees, and O(n) worst case if the tree becomes a skewed chain.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success" disabled>▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/bst.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

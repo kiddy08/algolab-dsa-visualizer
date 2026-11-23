@@ -1,0 +1,246 @@
+/* =====================================
+   LINKED LIST VISUALIZER (AlgoLab template)
+===================================== */
+
+.dot.pink {
+    background: #ec4899;
+}
+
+@media (min-width: 901px) {
+    .ll-workspace {
+        grid-template-columns: 0.85fr 1.9fr 1fr;
+    }
+}
+
+.ll-canvas-wrap {
+    flex: 1 1 auto;
+    min-height: 220px;
+    align-items: center;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 4px 12px 0;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    scrollbar-width: thin;
+}
+
+.ll-canvas {
+    position: relative;
+    flex: none;
+    margin: 0 auto;
+}
+
+.ll-svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ll-null {
+    fill: #94a3b8;
+    font: bold 10px Consolas, "Courier New", monospace;
+    letter-spacing: 1px;
+}
+
+.ll-head {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c3aed;
+    background: #ffffff;
+    border: 2px solid #7c3aed;
+    border-radius: 50%;
+}
+
+.ll-head-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.ll-head-label {
+    position: absolute;
+    width: 56px;
+    color: #7c3aed;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.ll-node {
+    position: absolute;
+    width: 76px;
+    height: 86px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border: 2px solid #c7d2fe;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px #312e8114;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ll-addr {
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    color: #94a3b8;
+    font: 10px Consolas, "Courier New", monospace;
+}
+
+.ll-value {
+    color: #312e81;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.ll-idx {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    color: #94a3b8;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.ll-node.is-scan {
+    border-color: #f59e0b;
+    background: #fffbeb;
+    box-shadow: 0 0 0 3px #f59e0b33;
+}
+
+.ll-node.is-scan .ll-value {
+    color: #92400e;
+}
+
+.ll-node.is-read {
+    border-color: #f59e0b;
+}
+
+.ll-node.is-new {
+    border-color: #16a34a;
+    background: #f0fdf4;
+    box-shadow: 0 0 0 3px #16a34a2e;
+    animation: slotPop 0.28s ease-out;
+}
+
+.ll-node.is-new .ll-value {
+    color: #166534;
+}
+
+.ll-node.is-remove {
+    border-color: #ef4444;
+    background: #fef2f2;
+    box-shadow: 0 0 0 3px #ef44442e;
+    animation: slotPulse 0.6s ease-out;
+}
+
+.ll-node.is-remove .ll-value {
+    color: #991b1b;
+}
+
+.ll-node.is-found {
+    border-color: #16a34a;
+    background: #16a34a;
+}
+
+.ll-node.is-found .ll-value,
+.ll-node.is-found .ll-addr,
+.ll-node.is-found .ll-idx {
+    color: #ffffff;
+}
+
+.ll-scan {
+    position: absolute;
+    transform: translateX(-50%);
+    padding: 2px 9px;
+    color: #ffffff;
+    background: #f59e0b;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* ---- new / removed node (heap) ---- */
+
+.ll-spawn {
+    flex: 0 0 auto;
+    margin: 10px 12px 0;
+    padding: 8px 12px 10px;
+    border: 1px dashed #c7d2fe;
+    border-radius: 12px;
+}
+
+.ll-spawn-title {
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.ll-spawn-body {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.ll-spawn-empty {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.ll-spawn-card {
+    position: relative;
+    width: 76px;
+    height: 68px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #16a34a;
+    border-radius: 12px;
+    animation: slotPop 0.28s ease-out;
+}
+
+.ll-spawn-card.is-free {
+    border-color: #ef4444;
+}
+
+.ll-spawn-card .ll-value {
+    font-size: 22px;
+}
+
+.ll-spawn-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    font: 11px Consolas, "Courier New", monospace;
+    color: #475569;
+}
+
+.ll-spawn-status {
+    padding: 2px 10px;
+    color: #ffffff;
+    background: #16a34a;
+    border-radius: 6px;
+    font: bold 10px Arial, sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.ll-spawn-status.is-free {
+    background: #ef4444;
+}

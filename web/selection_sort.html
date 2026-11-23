@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Learn Selection Sort</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Time: <strong>O(n²)</strong></span>
+        <span>Space: <strong>O(1)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div>
+            <h2>Selection Sort Visualizer</h2>
+            <span class="page-info-badge" title="Find the minimum value, follow the code, and understand every step. Enter 2–12 whole numbers (1–999) separated by commas.">i</span>
+            <p>Find the minimum value, follow the code, and understand every step.</p>
+        </div>
+
+        <div class="legend">
+            <span><i class="dot orange"></i> Compare</span>
+            <span><i class="dot red"></i> Minimum</span>
+            <span><i class="dot green"></i> Sorted</span>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <label for="arrayInput">Array:</label>
+        <input
+            type="text"
+            id="arrayInput"
+            value="50, 30, 80, 20, 60"
+            placeholder="50, 30, 80, 20, 60"
+            autocomplete="off"
+        >
+        <button class="btn primary" id="applyArrayBtn">Load Array</button>
+        <button class="btn secondary" id="randomBtn">New Array</button>
+        <span class="array-hint" id="arrayHint">
+            Enter 2–12 whole numbers (1–999) separated by commas.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">SelectionSort.java</span>
+            </div>
+
+            <div class="code-content">
+<pre><code><span class="code-line" data-line="1">void selectionSort(int[] arr) {</span>
+<span class="code-line" data-line="2">    int n = arr.length;</span>
+<span class="code-line" data-line="3">    for (int i = 0; i &lt; n - 1; i++) {</span>
+<span class="code-line" data-line="4">        int minIndex = i;</span>
+<span class="code-line" data-line="5">        for (int j = i + 1; j &lt; n; j++) {</span>
+<span class="code-line" data-line="6">            if (arr[j] &lt; arr[minIndex]) {</span>
+<span class="code-line" data-line="7">                minIndex = j;</span>
+<span class="code-line" data-line="8">            }</span>
+<span class="code-line" data-line="9">        }</span>
+<span class="code-line" data-line="10">        int temp = arr[i];</span>
+<span class="code-line" data-line="11">        arr[i] = arr[minIndex];</span>
+<span class="code-line" data-line="12">        arr[minIndex] = temp;</span>
+<span class="code-line" data-line="13">    }</span>
+<span class="code-line" data-line="14">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: ARRAY CHART -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Array Visualization</h3>
+                <span class="panel-tag">Live View</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current array</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div id="bars" class="bars"></div>
+
+            <div class="chart-caption">
+                <span><i class="dot orange"></i> Comparing values</span>
+                <span><i class="dot red"></i> Current minimum</span>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message">Click Next Step to begin Selection Sort.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No comparison yet</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    Selection Sort searches for the smallest value in
+                    the unsorted part of the array.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    After each pass, the next smallest value is placed
+                    in its correct position.
+                </p>
+            </div>
+
+           
+
+            <div class="step-counter">
+                <span id="status">Ready to sort</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Go at your own pace</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary">Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Start Sorting</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/selection_sort.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

@@ -1,0 +1,729 @@
+/* =====================================
+   TREE VISUALIZER (AlgoLab template — Compact Layout)
+===================================== */
+
+.dot.pink {
+    background: #ec4899;
+}
+
+.dot.blue {
+    background: #6366f1;
+}
+
+/* Compact Topbar & Dashboard for Tree Pages */
+
+body.tree-page .topbar {
+    height: 52px;
+    padding: 0 16px;
+    gap: 10px;
+}
+
+body.tree-page .brand {
+    align-items: center;
+    gap: 10px;
+}
+
+body.tree-page .brand h1 {
+    font-size: 21px;
+}
+
+body.tree-page .brand span {
+    font-size: 11px;
+}
+
+body.tree-page .complexity {
+    gap: 6px;
+}
+
+body.tree-page .complexity span {
+    padding: 5px 8px;
+    font-size: 11px;
+}
+
+body.tree-page .dashboard {
+    height: calc(100vh - 52px);
+    padding: 8px 14px;
+    gap: 7px;
+}
+
+/* Compact Header Bar (1 single slim line: Title + Info (i) + Tree Type Combobox + Legend) */
+
+body.tree-page .page-heading {
+    padding: 2px 4px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+body.tree-page .heading-main {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+body.tree-page .page-heading h2 {
+    font-size: 16px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Hide verbose subtitle paragraph; shown via info (i) badge tooltip */
+body.tree-page .page-heading p {
+    display: none;
+}
+
+.tree-info-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+body.theme-dark .tree-info-badge {
+    background: #1e2a4a;
+    color: #a5b4fc;
+}
+
+body.tree-page .type-switch {
+    margin-top: 0;
+    gap: 6px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border);
+}
+
+body.tree-page .type-switch label {
+    font-size: 10px;
+}
+
+body.tree-page .type-switch select {
+    min-width: 165px;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+body.tree-page .type-switch .btn {
+    padding: 5px 10px;
+    font-size: 11px;
+}
+
+body.tree-page .heading-side {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+body.tree-page .legend {
+    gap: 10px;
+    font-size: 11px;
+}
+
+body.tree-page .heading-settings {
+    gap: 6px;
+    font-size: 11px;
+}
+
+body.tree-page .heading-settings select {
+    padding: 4px 7px;
+    font-size: 11px;
+}
+
+/* Compact Single-Row Operations Toolbar */
+
+body.tree-page .search-settings {
+    padding: 6px 10px;
+    gap: 6px;
+    row-gap: 5px;
+    border-radius: 8px;
+}
+
+body.tree-page .search-settings .op-group {
+    gap: 5px;
+    padding-right: 9px;
+    margin-right: 1px;
+}
+
+body.tree-page .search-settings label {
+    font-size: 11px;
+}
+
+body.tree-page .search-settings .field input[type="number"] {
+    width: 66px;
+    padding: 5px 7px;
+    font-size: 12px;
+}
+
+body.tree-page .search-settings input[type="text"] {
+    width: 155px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+
+body.tree-page .search-settings .btn {
+    padding: 6px 9px;
+    font-size: 11px;
+    border-radius: 6px;
+}
+
+/* Hide redundant generic Presets row injected by enhance.js on tree pages */
+body.tree-page .enh-presets {
+    display: none !important;
+}
+
+/* Hide helper text unless an input validation error occurs */
+body.tree-page .search-settings .array-hint:not(.error) {
+    display: none;
+}
+
+body.tree-page .search-settings .array-hint.error {
+    flex: 0 1 auto;
+    font-size: 11px;
+    margin-left: 4px;
+}
+
+/* Maximize 3 Learning Panels */
+
+@media (min-width: 901px) {
+    .tree-workspace {
+        grid-template-columns: 0.88fr 1.92fr 1.02fr;
+        gap: 10px;
+    }
+}
+
+body.tree-page .panel-heading {
+    padding: 9px 12px;
+}
+
+body.tree-page .chart-summary {
+    padding: 7px 12px;
+}
+
+body.tree-page .stack-badges {
+    min-height: 22px;
+}
+
+.tree-canvas-wrap {
+    flex: 1 1 auto;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    margin: 4px 10px 0;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    scrollbar-width: thin;
+}
+
+.tree-svg {
+    display: block;
+    margin: 0 auto;
+    flex-shrink: 0;
+}
+
+.tree-empty-text {
+    fill: #94a3b8;
+    font: bold 13px Arial, sans-serif;
+    text-anchor: middle;
+}
+
+body.tree-page .chart-caption {
+    padding: 6px 12px;
+}
+
+body.tree-page .pivot-info {
+    margin: 0 10px 8px;
+    padding: 6px 10px;
+}
+
+body.tree-page .current-action {
+    padding: 10px 12px;
+}
+
+body.tree-page .current-action h2 {
+    margin: 4px 0;
+    font-size: 16px;
+}
+
+body.tree-page .detail-block {
+    padding: 7px 12px;
+}
+
+body.tree-page .control-bar {
+    padding: 7px 12px;
+}
+
+body.tree-page .control-bar .btn {
+    padding: 7px 11px;
+}
+
+/* Edges */
+
+.tree-edge {
+    stroke: #a5b4fc;
+    stroke-width: 2.5;
+    fill: none;
+    transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.tree-edge.is-path {
+    stroke: #ec4899;
+    stroke-width: 3.5;
+}
+
+.tree-edge.is-visited-edge {
+    stroke: #16a34a;
+    stroke-width: 2.8;
+}
+
+/* Nodes */
+
+.tree-svg-node circle {
+    fill: #ffffff;
+    stroke: #6366f1;
+    stroke-width: 2.5;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.tree-svg-node text.node-val {
+    fill: #312e81;
+    font: bold 13px Arial, sans-serif;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.tree-svg-node text.node-tag {
+    fill: #7c3aed;
+    font: bold 9px Consolas, "Courier New", monospace;
+    text-anchor: middle;
+}
+
+.tree-svg-node text.node-order {
+    fill: #ffffff;
+    font: bold 9px Arial, sans-serif;
+    text-anchor: middle;
+    dominant-baseline: central;
+}
+
+.tree-svg-node circle.order-badge {
+    fill: #16a34a;
+    stroke: #ffffff;
+    stroke-width: 1.5;
+}
+
+/* Current / Comparing -> Orange */
+.tree-svg-node.is-current circle.main-circle {
+    fill: #fffbeb;
+    stroke: #f59e0b;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-current text.node-val {
+    fill: #92400e;
+}
+
+/* Waiting on Call Stack / Queue -> Purple */
+.tree-svg-node.is-waiting circle.main-circle {
+    fill: #f3e8ff;
+    stroke: #7c3aed;
+    stroke-width: 3;
+}
+
+.tree-svg-node.is-waiting text.node-val {
+    fill: #5b21b6;
+}
+
+/* New Node -> Green outline + soft fill */
+.tree-svg-node.is-new circle.main-circle {
+    fill: #dcfce7;
+    stroke: #16a34a;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-new text.node-val {
+    fill: #166534;
+}
+
+/* Found / Just Visited Node -> Solid Green */
+.tree-svg-node.is-found circle.main-circle {
+    fill: #16a34a;
+    stroke: #15803d;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-found text.node-val {
+    fill: #ffffff;
+}
+
+/* Deleted Node -> Red */
+.tree-svg-node.is-delete circle.main-circle {
+    fill: #fef2f2;
+    stroke: #ef4444;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-delete text.node-val {
+    fill: #991b1b;
+}
+
+/* Inorder Successor -> Purple */
+.tree-svg-node.is-successor circle.main-circle {
+    fill: #f3e8ff;
+    stroke: #7c3aed;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-successor text.node-val {
+    fill: #5b21b6;
+}
+
+/* Already Visited in traversal -> Soft Green */
+.tree-svg-node.is-visited circle.main-circle {
+    fill: #f0fdf4;
+    stroke: #22c55e;
+    stroke-width: 2.5;
+}
+
+.tree-svg-node.is-visited text.node-val {
+    fill: #166534;
+}
+
+/* Traversal Strip (Visited Order + Stack/Queue state) */
+
+.tree-aux-box {
+    flex: 0 0 auto;
+    margin: 5px 10px 0;
+    padding: 6px 10px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.tree-aux-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11px;
+}
+
+.tree-aux-label {
+    color: var(--muted);
+    font-weight: bold;
+    min-width: 92px;
+}
+
+.tree-aux-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+}
+
+.tree-aux-empty {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* Dark mode support */
+
+body.theme-dark .tree-canvas-wrap,
+body.theme-dark .tree-aux-box {
+    background: #0b1224;
+    border-color: #27344d;
+}
+
+body.theme-dark .tree-edge {
+    stroke: #475569;
+}
+
+body.theme-dark .tree-edge.is-path {
+    stroke: #f472b6;
+}
+
+body.theme-dark .tree-edge.is-visited-edge {
+    stroke: #22c55e;
+}
+
+body.theme-dark .tree-svg-node circle.main-circle {
+    fill: #111c33;
+    stroke: #6366f1;
+}
+
+body.theme-dark .tree-svg-node text.node-val {
+    fill: #e0e7ff;
+}
+
+body.theme-dark .tree-svg-node text.node-tag {
+    fill: #c4b5fd;
+}
+
+body.theme-dark .tree-svg-node.is-current circle.main-circle {
+    fill: #3b2a0d;
+    stroke: #f59e0b;
+}
+
+body.theme-dark .tree-svg-node.is-current text.node-val {
+    fill: #fde68a;
+}
+
+body.theme-dark .tree-svg-node.is-waiting circle.main-circle {
+    fill: #2e1065;
+    stroke: #a855f7;
+}
+
+body.theme-dark .tree-svg-node.is-waiting text.node-val {
+    fill: #e9d5ff;
+}
+
+body.theme-dark .tree-svg-node.is-new circle.main-circle {
+    fill: #052e16;
+    stroke: #22c55e;
+}
+
+body.theme-dark .tree-svg-node.is-new text.node-val {
+    fill: #bbf7d0;
+}
+
+body.theme-dark .tree-svg-node.is-found circle.main-circle {
+    fill: #16a34a;
+    stroke: #22c55e;
+}
+
+body.theme-dark .tree-svg-node.is-found text.node-val {
+    fill: #ffffff;
+}
+
+body.theme-dark .tree-svg-node.is-delete circle.main-circle {
+    fill: #450a0a;
+    stroke: #ef4444;
+}
+
+body.theme-dark .tree-svg-node.is-delete text.node-val {
+    fill: #fecaca;
+}
+
+body.theme-dark .tree-svg-node.is-successor circle.main-circle {
+    fill: #3b1d63;
+    stroke: #a855f7;
+}
+
+body.theme-dark .tree-svg-node.is-successor text.node-val {
+    fill: #e9d5ff;
+}
+
+body.theme-dark .tree-svg-node.is-visited circle.main-circle {
+    fill: #064e3b;
+    stroke: #22c55e;
+}
+
+body.theme-dark .tree-svg-node.is-visited text.node-val {
+    fill: #bbf7d0;
+}
+
+/* Heap Array Strip & Index Badges */
+
+.tree-svg-node text.node-idx {
+    fill: #64748b;
+    font: bold 9px Consolas, "Courier New", monospace;
+    text-anchor: middle;
+}
+
+.tree-svg-node.is-swap circle.main-circle {
+    fill: #fef2f2;
+    stroke: #ef4444;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-swap text.node-val {
+    fill: #991b1b;
+}
+
+.heap-array-cell {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 32px;
+    padding: 2px 5px;
+    border-radius: 6px;
+    background: #e0e7ff;
+    color: #312e81;
+    border: 1px solid #c7d2fe;
+    font-size: 11px;
+    font-weight: bold;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.heap-array-cell small {
+    font-size: 9px;
+    font-weight: normal;
+    color: #64748b;
+    font-family: Consolas, "Courier New", monospace;
+}
+
+.heap-array-cell.is-root {
+    background: #f3e8ff;
+    border-color: #7c3aed;
+    color: #5b21b6;
+}
+
+.heap-array-cell.is-current {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+}
+
+.heap-array-cell.is-swap {
+    background: #fee2e2;
+    border-color: #ef4444;
+    color: #991b1b;
+}
+
+.heap-array-cell.is-new {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #166534;
+}
+
+body.theme-dark .tree-svg-node text.node-idx {
+    fill: #94a3b8;
+}
+
+body.theme-dark .tree-svg-node.is-swap circle.main-circle {
+    fill: #450a0a;
+    stroke: #ef4444;
+}
+
+body.theme-dark .tree-svg-node.is-swap text.node-val {
+    fill: #fecaca;
+}
+
+body.theme-dark .heap-array-cell {
+    background: #1e2a4a;
+    border-color: #3b4a7a;
+    color: #e0e7ff;
+}
+
+body.theme-dark .heap-array-cell small {
+    color: #94a3b8;
+}
+
+body.theme-dark .heap-array-cell.is-root {
+    background: #3b1d63;
+    border-color: #a855f7;
+    color: #e9d5ff;
+}
+
+body.theme-dark .heap-array-cell.is-current {
+    background: #3b2a0d;
+    border-color: #f59e0b;
+    color: #fde68a;
+}
+
+body.theme-dark .heap-array-cell.is-swap {
+    background: #450a0a;
+    border-color: #ef4444;
+    color: #fecaca;
+}
+
+body.theme-dark .heap-array-cell.is-new {
+    background: #052e16;
+    border-color: #22c55e;
+    color: #bbf7d0;
+}
+
+/* AVL Balance Factor & Imbalance / Rotation Badges */
+
+.tree-svg-node text.node-bf {
+    fill: #16a34a;
+    font: bold 9px Consolas, "Courier New", monospace;
+    text-anchor: middle;
+}
+
+.tree-svg-node text.node-bf.is-unbalanced {
+    fill: #dc2626;
+    font-size: 10px;
+}
+
+.tree-svg-node.is-unbalanced circle.main-circle {
+    fill: #fef2f2;
+    stroke: #ef4444;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-unbalanced text.node-val {
+    fill: #991b1b;
+}
+
+.tree-svg-node.is-rotated circle.main-circle {
+    fill: #f3e8ff;
+    stroke: #7c3aed;
+    stroke-width: 3.5;
+}
+
+.tree-svg-node.is-rotated text.node-val {
+    fill: #5b21b6;
+}
+
+body.theme-dark .tree-svg-node text.node-bf {
+    fill: #4ade80;
+}
+
+body.theme-dark .tree-svg-node text.node-bf.is-unbalanced {
+    fill: #f87171;
+}
+
+body.theme-dark .tree-svg-node.is-unbalanced circle.main-circle {
+    fill: #450a0a;
+    stroke: #ef4444;
+}
+
+body.theme-dark .tree-svg-node.is-unbalanced text.node-val {
+    fill: #fecaca;
+}
+
+body.theme-dark .tree-svg-node.is-rotated circle.main-circle {
+    fill: #3b1d63;
+    stroke: #a855f7;
+}
+
+body.theme-dark .tree-svg-node.is-rotated text.node-val {
+    fill: #e9d5ff;
+}
+
+/* Trie End-of-Word Ring & Word Badge */
+
+.tree-svg-node circle.eow-ring {
+    fill: none;
+    stroke: #7c3aed;
+    stroke-width: 2;
+    stroke-dasharray: 3 2;
+    pointer-events: none;
+}
+
+.tree-svg-node text.node-word {
+    fill: #16a34a;
+    font: bold 9px Consolas, "Courier New", monospace;
+    text-anchor: middle;
+}
+
+body.theme-dark .tree-svg-node circle.eow-ring {
+    stroke: #c4b5fd;
+}
+
+body.theme-dark .tree-svg-node text.node-word {
+    fill: #4ade80;
+}

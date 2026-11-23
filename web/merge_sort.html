@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Merge Sort Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Time: <strong>O(n log n)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <section class="page-heading">
+        <div>
+            <h2>Merge Sort Visualizer</h2>
+            <span class="page-info-badge" title="Divide and Conquer — step-by-step animation. Enter 1–16 numbers separated by commas.">i</span>
+            <p>Divide and Conquer — step-by-step animation</p>
+        </div>
+
+        <div class="legend">
+            <span><i class="dot orange"></i> Divide</span>
+            <span><i class="dot red"></i> Merge</span>
+            <span><i class="dot green"></i> Sorted</span>
+        </div>
+    </section>
+
+    <section class="search-settings">
+        <label for="array-input">Array:</label>
+        <input
+            type="text"
+            id="array-input"
+            value="8,3,5,1,9,2,6,4"
+            placeholder="8,3,5,1"
+        >
+        <button class="btn primary" id="load-btn">Load Array</button>
+        <button class="btn secondary" id="random-btn">New Array</button>
+        <span class="array-hint" id="arrayHint">
+            Enter 1–16 numbers separated by commas.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- JAVA CODE -->
+        <div class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">MergeSort.java</span>
+            </div>
+
+            <div class="code-content">
+                <pre id="code-display"></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Follow the highlighted code.
+            </div>
+        </div>
+
+        <!-- ARRAY CHART (full height) -->
+        <div class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Array Visualization</h3>
+                <span class="panel-tag">LIVE</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Operation</span>
+                <strong id="operation-label">Ready</strong>
+            </div>
+
+            <div class="bars" id="array-container"></div>
+
+            <div class="chart-caption">
+                <span><i class="dot orange"></i> Divide</span>
+                <span><i class="dot red"></i> Merge</span>
+                <span><i class="dot green"></i> Sorted</span>
+            </div>
+        </div>
+
+        <!-- EXPLANATION + TREE -->
+        <div class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">LEARN</span>
+            </div>
+
+            <div class="current-action">
+                <span class="eyebrow">CURRENT STEP</span>
+                <h2 id="action-title">Ready to Start</h2>
+                <p id="explanation">
+                    Click Next to begin Merge Sort.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>What is happening?</h4>
+                <p id="detail-text">
+                    The array is divided into smaller arrays.
+                </p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why?</h4>
+                <p id="why-text">
+                    Smaller arrays are easier to sort.
+                </p>
+            </div>
+
+            <div class="mini-arrays">
+                <div class="mini-array-box">
+                    <h4>Current Array</h4>
+                    <div class="array-values" id="current-array"></div>
+                </div>
+
+                <div class="mini-array-box">
+                    <h4>Result</h4>
+                    <div class="array-values" id="result-array"></div>
+                </div>
+            </div>
+
+            <div class="tree-section">
+                <div class="panel-heading">
+                    <h3>Merge Sort Tree</h3>
+                    <span class="panel-tag">TREE ANIMATION</span>
+                </div>
+                <div class="merge-tree" id="merge-tree"></div>
+            </div>
+
+            <div class="step-counter" id="step-counter">
+                Step 0 / 0
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CONTROLS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Animation Controls</strong>
+            <span>Control each step</span>
+        </div>
+
+        <div class="controls">
+            <button class="btn secondary" id="prev-btn" disabled>← Previous</button>
+            <button class="btn primary" id="next-btn">Next Step →</button>
+            <button class="btn success" id="play-btn">▶ Start Sorting</button>
+            <button class="btn danger" id="reset-btn">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/merge_sort.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

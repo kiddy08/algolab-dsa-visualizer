@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Priority Queue Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>enqueue: <strong>O(n)</strong></span>
+        <span>dequeue: <strong>O(n)</strong> · peek: <strong>O(1)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Priority Queue Visualizer</h2>
+            <span class="page-info-badge" title="The value with the highest priority leaves first. P1 is the highest priority, P9 the lowest. Value 1 to 999, priority 1 to 9.">i</span>
+            <p>The value with the highest priority leaves first. P1 is the highest priority, P9 the lowest.</p>
+            <div class="type-switch">
+                <label for="queueType">Queue type</label>
+                <select id="queueType" title="Choose a queue type to open its visualizer">
+                    <option value="queue.html">Simple Queue (Linear Queue)</option>
+                    <option value="circular_queue.html">Circular Queue</option>
+                    <option value="priority_queue.html" selected>Priority Queue</option>
+                    <option value="deque.html">Double-Ended Queue (Deque)</option>
+                </select>
+                <button class="btn primary" id="openQueueBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> Front (highest priority)</span>
+                <span><i class="dot orange"></i> Comparing</span>
+                <span><i class="dot red"></i> Removed / error</span>
+                <span><i class="dot green"></i> Moved / placed</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="capacitySelect">Capacity</label>
+                <select id="capacitySelect">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="8" selected>8</option>
+                    <option value="10">10</option>
+                </select>
+
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="40"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+            <div class="field">
+                <label for="priorityInput">Priority (1 = highest)</label>
+                <input
+                    type="number"
+                    id="priorityInput"
+                    value="3"
+                    min="1"
+                    max="9"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="enqueueBtn" title="Add the value with its priority">Enqueue</button>
+            <button class="btn secondary" id="dequeueBtn" title="Remove the highest priority value">Dequeue</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="peekBtn" title="Look at the highest priority value without removing it">Peek</button>
+            <button class="btn ghost" id="isEmptyBtn" title="Is the queue empty?">isEmpty()</button>
+            <button class="btn ghost" id="sizeBtn" title="How many values are waiting?">size()</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomBtn" title="Load a random queue">New Queue</button>
+            <button class="btn ghost" id="clearBtn" title="Empty the queue">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Value 1 to 999, priority 1 to 9. The queue holds up to 8 values.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">PriorityQueue.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class PriorityQueue {</span>
+<span class="code-line" data-line="2">    private int[] value;</span>
+<span class="code-line" data-line="3">    private int[] priority;</span>
+<span class="code-line" data-line="4">    private int size = 0;</span>
+<span class="code-line" data-line="5"></span>
+<span class="code-line" data-line="6">    PriorityQueue(int capacity) {</span>
+<span class="code-line" data-line="7">        value = new int[capacity];</span>
+<span class="code-line" data-line="8">        priority = new int[capacity];</span>
+<span class="code-line" data-line="9">    }</span>
+<span class="code-line" data-line="10"></span>
+<span class="code-line" data-line="11">    void enqueue(int v, int p) {</span>
+<span class="code-line" data-line="12">        if (size == value.length)</span>
+<span class="code-line" data-line="13">            throw new RuntimeException("Queue Overflow");</span>
+<span class="code-line" data-line="14">        int i = size - 1;</span>
+<span class="code-line" data-line="15">        while (i &gt;= 0 &amp;&amp; priority[i] &gt; p) {</span>
+<span class="code-line" data-line="16">            value[i + 1] = value[i];</span>
+<span class="code-line" data-line="17">            priority[i + 1] = priority[i];</span>
+<span class="code-line" data-line="18">            i--;</span>
+<span class="code-line" data-line="19">        }</span>
+<span class="code-line" data-line="20">        value[i + 1] = v;</span>
+<span class="code-line" data-line="21">        priority[i + 1] = p;</span>
+<span class="code-line" data-line="22">        size++;</span>
+<span class="code-line" data-line="23">    }</span>
+<span class="code-line" data-line="24"></span>
+<span class="code-line" data-line="25">    int dequeue() {</span>
+<span class="code-line" data-line="26">        if (size == 0)</span>
+<span class="code-line" data-line="27">            throw new RuntimeException("Queue Underflow");</span>
+<span class="code-line" data-line="28">        int v = value[0];</span>
+<span class="code-line" data-line="29">        for (int i = 1; i &lt; size; i++) {</span>
+<span class="code-line" data-line="30">            value[i - 1] = value[i];</span>
+<span class="code-line" data-line="31">            priority[i - 1] = priority[i];</span>
+<span class="code-line" data-line="32">        }</span>
+<span class="code-line" data-line="33">        size--;</span>
+<span class="code-line" data-line="34">        return v;</span>
+<span class="code-line" data-line="35">    }</span>
+<span class="code-line" data-line="36"></span>
+<span class="code-line" data-line="37">    int peek() {</span>
+<span class="code-line" data-line="38">        if (size == 0)</span>
+<span class="code-line" data-line="39">            throw new RuntimeException("Queue is empty");</span>
+<span class="code-line" data-line="40">        return value[0];</span>
+<span class="code-line" data-line="41">    }</span>
+<span class="code-line" data-line="42"></span>
+<span class="code-line" data-line="43">    boolean isEmpty() {</span>
+<span class="code-line" data-line="44">        return size == 0;</span>
+<span class="code-line" data-line="45">    }</span>
+<span class="code-line" data-line="46"></span>
+<span class="code-line" data-line="47">    int size() {</span>
+<span class="code-line" data-line="48">        return size;</span>
+<span class="code-line" data-line="49">    }</span>
+<span class="code-line" data-line="50">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Priority Queue Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="queueBadge">3 / 8 used</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="queue-stage">
+                <div id="queueView" class="queue-view"></div>
+
+                <div class="queue-axis">
+                    <span>◄ highest priority leaves first</span>
+                    <span>lowest priority ►</span>
+                </div>
+
+                <div class="prio-legend">
+                    <span><i class="swatch high"></i> High priority (P1–P3)</span>
+                    <span><i class="swatch mid"></i> Medium (P4–P6)</span>
+                    <span><i class="swatch low"></i> Low (P7–P9)</span>
+                </div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value and a priority, then click Enqueue.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Pointers</span>
+                <strong id="pointerInfo">front = 0</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <span class="step-chip" id="stepChip">Ready</span>
+            </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose a value and a priority, then click Enqueue.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    The array is kept sorted by priority, so the highest priority value is always at the front.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    A smaller priority number means a higher priority. Equal priorities keep their arrival order.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/priority_queue.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Circular Queue Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>enqueue / dequeue: <strong>O(1)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Circular Queue Visualizer</h2>
+            <span class="page-info-badge" title="First In, First Out (FIFO) — rear and front wrap around the array, so freed slots are reused. Enqueue a whole number from 1 to 999.">i</span>
+            <p>First In, First Out (FIFO) — rear and front wrap around the array, so freed slots are reused.</p>
+            <div class="type-switch">
+                <label for="queueType">Queue type</label>
+                <select id="queueType" title="Choose a queue type to open its visualizer">
+                    <option value="queue.html">Simple Queue (Linear Queue)</option>
+                    <option value="circular_queue.html" selected>Circular Queue</option>
+                    <option value="priority_queue.html">Priority Queue</option>
+                    <option value="deque.html">Double-Ended Queue (Deque)</option>
+                </select>
+                <button class="btn primary" id="openQueueBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> Front</span>
+                <span><i class="dot orange"></i> Checking</span>
+                <span><i class="dot red"></i> Removed / error</span>
+                <span><i class="dot green"></i> Added</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="capacitySelect">Capacity</label>
+                <select id="capacitySelect">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="8" selected>8</option>
+                    <option value="10">10</option>
+                </select>
+
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="40"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="enqueueBtn" title="Add the value at the rear">Enqueue</button>
+            <button class="btn secondary" id="dequeueBtn" title="Remove the value at the front">Dequeue</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="peekBtn" title="Look at the front value without removing it">Peek</button>
+            <button class="btn ghost" id="isEmptyBtn" title="Is the queue empty?">isEmpty()</button>
+            <button class="btn ghost" id="sizeBtn" title="How many values are waiting?">size()</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomBtn" title="Load a random queue">New Queue</button>
+            <button class="btn ghost" id="clearBtn" title="Empty the queue">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Enqueue a whole number from 1 to 999. The queue holds up to 8 values.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">CircularQueue.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class CircularQueue {</span>
+<span class="code-line" data-line="2">    private int[] data;</span>
+<span class="code-line" data-line="3">    private int front = 0;</span>
+<span class="code-line" data-line="4">    private int rear = -1;</span>
+<span class="code-line" data-line="5">    private int size = 0;</span>
+<span class="code-line" data-line="6"></span>
+<span class="code-line" data-line="7">    CircularQueue(int capacity) {</span>
+<span class="code-line" data-line="8">        data = new int[capacity];</span>
+<span class="code-line" data-line="9">    }</span>
+<span class="code-line" data-line="10"></span>
+<span class="code-line" data-line="11">    void enqueue(int value) {</span>
+<span class="code-line" data-line="12">        if (size == data.length)</span>
+<span class="code-line" data-line="13">            throw new RuntimeException("Queue Overflow");</span>
+<span class="code-line" data-line="14">        rear = (rear + 1) % data.length;</span>
+<span class="code-line" data-line="15">        data[rear] = value;</span>
+<span class="code-line" data-line="16">        size++;</span>
+<span class="code-line" data-line="17">    }</span>
+<span class="code-line" data-line="18"></span>
+<span class="code-line" data-line="19">    int dequeue() {</span>
+<span class="code-line" data-line="20">        if (size == 0)</span>
+<span class="code-line" data-line="21">            throw new RuntimeException("Queue Underflow");</span>
+<span class="code-line" data-line="22">        int value = data[front];</span>
+<span class="code-line" data-line="23">        front = (front + 1) % data.length;</span>
+<span class="code-line" data-line="24">        size--;</span>
+<span class="code-line" data-line="25">        return value;</span>
+<span class="code-line" data-line="26">    }</span>
+<span class="code-line" data-line="27"></span>
+<span class="code-line" data-line="28">    int peek() {</span>
+<span class="code-line" data-line="29">        if (size == 0)</span>
+<span class="code-line" data-line="30">            throw new RuntimeException("Queue is empty");</span>
+<span class="code-line" data-line="31">        return data[front];</span>
+<span class="code-line" data-line="32">    }</span>
+<span class="code-line" data-line="33"></span>
+<span class="code-line" data-line="34">    boolean isEmpty() {</span>
+<span class="code-line" data-line="35">        return size == 0;</span>
+<span class="code-line" data-line="36">    }</span>
+<span class="code-line" data-line="37"></span>
+<span class="code-line" data-line="38">    int size() {</span>
+<span class="code-line" data-line="39">        return size;</span>
+<span class="code-line" data-line="40">    }</span>
+<span class="code-line" data-line="41">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Circular Queue Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="queueBadge">3 / 8 used</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div id="ringView" class="ring-view"></div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value and click Enqueue or Dequeue.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Pointers</span>
+                <strong id="pointerInfo">front = 0</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <span class="step-chip" id="stepChip">Ready</span>
+            </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose a value and click Enqueue or Dequeue.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    A circular queue treats the array as a ring. After the last index comes index 0 again.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    Use (index + 1) % capacity to move a pointer. It wraps back to 0 at the end.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/ring_view.js"></script>
+<script src="js/circular_queue.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

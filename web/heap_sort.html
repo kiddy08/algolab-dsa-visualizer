@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Heap Sort Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Time: <strong>O(n log n)</strong></span>
+        <span>Space: <strong>O(1)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div>
+            <h2>Heap Sort Visualizer</h2>
+            <span class="page-info-badge" title="Build a max-heap, then move the largest value to the end again and again. Enter 2–12 whole numbers (1–999) separated by commas.">i</span>
+            <p>Build a max-heap, then move the largest value to the end again and again.</p>
+        </div>
+
+        <div class="legend">
+            <span><i class="dot purple"></i> Current root</span>
+            <span><i class="dot orange"></i> Comparing</span>
+            <span><i class="dot red"></i> Swapping</span>
+            <span><i class="dot green"></i> Sorted</span>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <label for="arrayInput">Array:</label>
+        <input
+            type="text"
+            id="arrayInput"
+            value="30, 70, 20, 90, 50, 10, 60"
+            placeholder="30, 70, 20, 90, 50, 10, 60"
+            autocomplete="off"
+        >
+        <button class="btn primary" id="applyArrayBtn">Load Array</button>
+        <button class="btn secondary" id="randomBtn">New Array</button>
+        <span class="array-hint" id="arrayHint">
+            Enter 2–12 whole numbers (1–999) separated by commas.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">HeapSort.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">void heapSort(int[] arr) {</span>
+<span class="code-line" data-line="2">    int n = arr.length;</span>
+<span class="code-line" data-line="3"></span>
+<span class="code-line" data-line="4">    for (int i = n / 2 - 1; i &gt;= 0; i--)</span>
+<span class="code-line" data-line="5">        heapify(arr, n, i);</span>
+<span class="code-line" data-line="6"></span>
+<span class="code-line" data-line="7">    for (int i = n - 1; i &gt; 0; i--) {</span>
+<span class="code-line" data-line="8">        int temp = arr[0];</span>
+<span class="code-line" data-line="9">        arr[0] = arr[i];</span>
+<span class="code-line" data-line="10">        arr[i] = temp;</span>
+<span class="code-line" data-line="11">        heapify(arr, i, 0);</span>
+<span class="code-line" data-line="12">    }</span>
+<span class="code-line" data-line="13">}</span>
+<span class="code-line" data-line="14"></span>
+<span class="code-line" data-line="15">void heapify(int[] arr, int n, int i) {</span>
+<span class="code-line" data-line="16">    int largest = i;</span>
+<span class="code-line" data-line="17">    int left = 2 * i + 1;</span>
+<span class="code-line" data-line="18">    int right = 2 * i + 2;</span>
+<span class="code-line" data-line="19"></span>
+<span class="code-line" data-line="20">    if (left &lt; n &amp;&amp; arr[left] &gt; arr[largest])</span>
+<span class="code-line" data-line="21">        largest = left;</span>
+<span class="code-line" data-line="22"></span>
+<span class="code-line" data-line="23">    if (right &lt; n &amp;&amp; arr[right] &gt; arr[largest])</span>
+<span class="code-line" data-line="24">        largest = right;</span>
+<span class="code-line" data-line="25"></span>
+<span class="code-line" data-line="26">    if (largest != i) {</span>
+<span class="code-line" data-line="27">        int temp = arr[i];</span>
+<span class="code-line" data-line="28">        arr[i] = arr[largest];</span>
+<span class="code-line" data-line="29">        arr[largest] = temp;</span>
+<span class="code-line" data-line="30">        heapify(arr, n, largest);</span>
+<span class="code-line" data-line="31">    }</span>
+<span class="code-line" data-line="32">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: ARRAY VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Array Visualization</h3>
+                <span class="panel-tag" id="status">Ready to sort</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div id="bars" class="bars"></div>
+
+            <p class="chart-caption" id="chartCaption">
+                Click Next Step to begin sorting.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Current root</span>
+                <strong id="heapInfo">Not selected</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION + HEAP TREE -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message">Click Next Step to begin learning Heap Sort.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No values selected yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    Heap Sort turns the array into a max-heap, then sorts it from the back.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    For index i, the children are at 2i + 1 and 2i + 2.
+                </p>
+            </div>
+
+            <div class="tree-section">
+                <div class="panel-heading">
+                    <h3>Heap Tree</h3>
+                    <span class="panel-tag">TREE ANIMATION</span>
+                </div>
+                <div class="algo-tree" id="heap-tree"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 0</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Go at your own pace</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary">Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Start Sorting</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/heap_sort.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

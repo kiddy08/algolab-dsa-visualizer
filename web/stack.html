@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Stack Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>push / pop / peek: <strong>O(1)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Stack Visualizer</h2>
+            <span class="page-info-badge" title="Last In, First Out (LIFO) — push, pop and peek on an array-based stack. Push a whole number from 1 to 999.">i</span>
+            <p>Last In, First Out (LIFO) — push, pop and peek on an array-based stack.</p>
+            <p class="page-link">
+                Real-world use of a stack:
+                <a href="balanced_brackets.html">Balanced Brackets checker →</a>
+            </p>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> Top</span>
+                <span><i class="dot orange"></i> Checking</span>
+                <span><i class="dot red"></i> Removed / error</span>
+                <span><i class="dot green"></i> Pushed</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="capacitySelect">Capacity</label>
+                <select id="capacitySelect">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="8" selected>8</option>
+                    <option value="10">10</option>
+                </select>
+
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="40"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="pushBtn" title="Put the value on top">Push</button>
+            <button class="btn secondary" id="popBtn" title="Remove the value on top">Pop</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="peekBtn" title="Look at the top value without removing it">Peek</button>
+            <button class="btn ghost" id="isEmptyBtn" title="Is the stack empty?">isEmpty()</button>
+            <button class="btn ghost" id="sizeBtn" title="How many values are stacked?">size()</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomBtn" title="Load a random stack">New Stack</button>
+            <button class="btn ghost" id="clearBtn" title="Empty the stack">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Push a whole number from 1 to 999. The stack holds up to 8 values.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">Stack.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class Stack {</span>
+<span class="code-line" data-line="2">    private int[] data;</span>
+<span class="code-line" data-line="3">    private int top = -1;</span>
+<span class="code-line" data-line="4"></span>
+<span class="code-line" data-line="5">    Stack(int capacity) {</span>
+<span class="code-line" data-line="6">        data = new int[capacity];</span>
+<span class="code-line" data-line="7">    }</span>
+<span class="code-line" data-line="8"></span>
+<span class="code-line" data-line="9">    void push(int value) {</span>
+<span class="code-line" data-line="10">        if (top == data.length - 1)</span>
+<span class="code-line" data-line="11">            throw new RuntimeException("Stack Overflow");</span>
+<span class="code-line" data-line="12">        data[++top] = value;</span>
+<span class="code-line" data-line="13">    }</span>
+<span class="code-line" data-line="14"></span>
+<span class="code-line" data-line="15">    int pop() {</span>
+<span class="code-line" data-line="16">        if (top == -1)</span>
+<span class="code-line" data-line="17">            throw new RuntimeException("Stack Underflow");</span>
+<span class="code-line" data-line="18">        return data[top--];</span>
+<span class="code-line" data-line="19">    }</span>
+<span class="code-line" data-line="20"></span>
+<span class="code-line" data-line="21">    int peek() {</span>
+<span class="code-line" data-line="22">        if (top == -1)</span>
+<span class="code-line" data-line="23">            throw new RuntimeException("Stack is empty");</span>
+<span class="code-line" data-line="24">        return data[top];</span>
+<span class="code-line" data-line="25">    }</span>
+<span class="code-line" data-line="26"></span>
+<span class="code-line" data-line="27">    boolean isEmpty() {</span>
+<span class="code-line" data-line="28">        return top == -1;</span>
+<span class="code-line" data-line="29">    }</span>
+<span class="code-line" data-line="30"></span>
+<span class="code-line" data-line="31">    int size() {</span>
+<span class="code-line" data-line="32">        return top + 1;</span>
+<span class="code-line" data-line="33">    }</span>
+<span class="code-line" data-line="34">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: STACK VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Stack Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="stackBadge">3 / 8 used</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div id="stackView" class="stack-view"></div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value and click Push, Pop or Peek.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Top pointer</span>
+                <strong id="topInfo">top = -1</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <span class="step-chip" id="stepChip">Ready</span>
+            </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Click Push, Pop or Peek to run an operation.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    A stack only lets you change the top. The last value pushed is the first one popped.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    top is the index of the newest value. An empty stack has top = -1.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/stack.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

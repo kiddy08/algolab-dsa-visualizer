@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Trie (Prefix Tree) Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="tree-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Insert / Search / Prefix: <strong>O(L)</strong></span>
+        <span>Delete: <strong>O(L)</strong></span>
+        <span>Space: <strong>O(ALPHABET · N)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Trie (Prefix Tree) Visualizer</h2>
+            <span class="tree-info-badge" title="Each edge represents a character (a–z). Words sharing a prefix share the same path from the root. Purple ring (★) marks the end of a stored word.">i</span>
+            <p>Each edge represents a character (a–z). Words sharing a prefix share the same path from the root.</p>
+
+            <div class="type-switch">
+                <label for="treeType">Tree type</label>
+                <select id="treeType" title="Choose a tree visualizer to open">
+                    <option value="bst.html">Binary Search Tree</option>
+                    <option value="tree_traversals.html">Tree Traversals</option>
+                    <option value="heap.html">Min/Max Heap</option>
+                    <option value="avl_tree.html">AVL Tree</option>
+                    <option value="trie.html" selected>Trie</option>
+                </select>
+                <button class="btn primary" id="openTreeBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot orange"></i> Current char</span>
+                <span><i class="dot pink"></i> Matched path</span>
+                <span><i class="dot green"></i> New / Found</span>
+                <span><i class="dot purple"></i> isEndOfWord ★</span>
+                <span><i class="dot red"></i> Deleted / Miss</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="wordInput">Word / Prefix</label>
+                <input
+                    type="text"
+                    id="wordInput"
+                    value="cart"
+                    maxlength="7"
+                    placeholder="e.g. cart"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
+            <button class="btn ghost" id="randomWordBtn" title="Suggest another word">↻</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="insertBtn" title="Insert word into the Trie">Insert Word</button>
+            <button class="btn ghost" id="searchBtn" title="Check if exact word exists">Search Word</button>
+            <button class="btn ghost" id="prefixBtn" title="Check prefix &amp; autocomplete words">startsWith (Prefix)</button>
+            <button class="btn secondary" id="deleteBtn" title="Delete word &amp; prune unused nodes">Delete Word</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="presetAnimalsBtn" title="Load cat, car, card, care, dog, dot">Preset: cat/car/dog</button>
+            <button class="btn ghost" id="presetCodeBtn" title="Load try, trie, tree, algo, lab">Preset: trie/tree</button>
+            <button class="btn ghost" id="clearBtn" title="Clear all words">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Enter 1–7 letters (a–z, max 10 words). Nodes with a purple ring (★) mark the end of a stored word.
+        </span>
+    </section>
+
+    <section class="workspace tree-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">Trie.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class TrieNode {</span>
+<span class="code-line" data-line="2">    Map&lt;Character, TrieNode&gt; children = new TreeMap&lt;&gt;();</span>
+<span class="code-line" data-line="3">    boolean isEndOfWord = false;</span>
+<span class="code-line" data-line="4">}</span>
+<span class="code-line" data-line="5"></span>
+<span class="code-line" data-line="6">void insert(String word) {</span>
+<span class="code-line" data-line="7">    TrieNode curr = root;</span>
+<span class="code-line" data-line="8">    for (char ch : word.toCharArray()) {</span>
+<span class="code-line" data-line="9">        curr.children.putIfAbsent(ch, new TrieNode());</span>
+<span class="code-line" data-line="10">        curr = curr.children.get(ch);</span>
+<span class="code-line" data-line="11">    }</span>
+<span class="code-line" data-line="12">    curr.isEndOfWord = true;</span>
+<span class="code-line" data-line="13">}</span>
+<span class="code-line" data-line="14"></span>
+<span class="code-line" data-line="15">boolean search(String word) {</span>
+<span class="code-line" data-line="16">    TrieNode node = walkPrefix(word);</span>
+<span class="code-line" data-line="17">    return node != null &amp;&amp; node.isEndOfWord;</span>
+<span class="code-line" data-line="18">}</span>
+<span class="code-line" data-line="19"></span>
+<span class="code-line" data-line="20">boolean startsWith(String prefix) {</span>
+<span class="code-line" data-line="21">    return walkPrefix(prefix) != null;</span>
+<span class="code-line" data-line="22">}</span>
+<span class="code-line" data-line="23"></span>
+<span class="code-line" data-line="24">TrieNode walkPrefix(String str) {</span>
+<span class="code-line" data-line="25">    TrieNode curr = root;</span>
+<span class="code-line" data-line="26">    for (char ch : str.toCharArray()) {</span>
+<span class="code-line" data-line="27">        if (!curr.children.containsKey(ch)) return null;</span>
+<span class="code-line" data-line="28">        curr = curr.children.get(ch);</span>
+<span class="code-line" data-line="29">    }</span>
+<span class="code-line" data-line="30">    return curr;</span>
+<span class="code-line" data-line="31">}</span>
+<span class="code-line" data-line="32"></span>
+<span class="code-line" data-line="33">boolean delete(TrieNode curr, String word, int idx) {</span>
+<span class="code-line" data-line="34">    if (idx == word.length()) {</span>
+<span class="code-line" data-line="35">        if (!curr.isEndOfWord) return false;</span>
+<span class="code-line" data-line="36">        curr.isEndOfWord = false;</span>
+<span class="code-line" data-line="37">        return curr.children.isEmpty();</span>
+<span class="code-line" data-line="38">    }</span>
+<span class="code-line" data-line="39">    char ch = word.charAt(idx);</span>
+<span class="code-line" data-line="40">    TrieNode next = curr.children.get(ch);</span>
+<span class="code-line" data-line="41">    if (next == null) return false;</span>
+<span class="code-line" data-line="42">    if (delete(next, word, idx + 1)) {</span>
+<span class="code-line" data-line="43">        curr.children.remove(ch);</span>
+<span class="code-line" data-line="44">        return !curr.isEndOfWord &amp;&amp; curr.children.isEmpty();</span>
+<span class="code-line" data-line="45">    }</span>
+<span class="code-line" data-line="46">    return false;</span>
+<span class="code-line" data-line="47">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: TRIE VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Trie Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="treeBadge">5 words · 11 nodes</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="tree-canvas-wrap" id="treeCanvasWrap">
+                <svg id="treeSvg" class="tree-svg" width="680" height="290"></svg>
+            </div>
+
+            <div class="tree-aux-box">
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label">Stored words:</span>
+                    <div class="tree-aux-items" id="wordsBox">
+                        <span class="tree-aux-empty">No words stored.</span>
+                    </div>
+                </div>
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="matchesLabel">Prefix matches:</span>
+                    <div class="tree-aux-items" id="matchesBox">
+                        <span class="tree-aux-empty">Run startsWith or Search to see matching words.</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Type a word (1–7 letters) and click Insert, Search, startsWith or Delete.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Trie state</span>
+                <strong id="pointerInfo">prefix = "" · words = 5 · nodes = 11</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose an operation above to watch how a Trie processes characters one by one.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    A Trie branches by character, so lookup time O(L) depends only on word length L, not on how many words are stored.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    isEndOfWord (★) distinguishes a complete stored word (like "car") from a mere prefix of a longer word (like "card").
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success" disabled>▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/trie.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

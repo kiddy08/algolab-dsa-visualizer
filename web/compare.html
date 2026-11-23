@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Algorithm Comparison Studio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/compare.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="theme-dark">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Tool: <strong>Side-by-Side Benchmark</strong></span>
+        <span>Fair Comparison: <strong>Cloned Inputs</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Algorithm Comparison Studio</h2>
+            <span class="page-info-badge" title="Compare two sorting algorithms side-by-side using identical input datasets. Tracks comparisons, swaps, writes, steps, and approximate timing.">i</span>
+            <p>Compare two sorting algorithms side-by-side using identical input datasets and track performance metrics.</p>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot orange"></i> Comparing</span>
+                <span><i class="dot red"></i> Swapping</span>
+                <span><i class="dot green"></i> Sorted</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARED INPUT TOOLBAR -->
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field" style="flex: 1 1 285px;">
+                <label for="arrayInput">Shared Dataset</label>
+                <input
+                    type="text"
+                    id="arrayInput"
+                    value="50, 20, 70, 10, 90, 30, 80, 40, 60"
+                    placeholder="e.g. 50, 20, 70, 10, 90"
+                    autocomplete="off"
+                >
+            </div>
+            <button class="btn primary" id="applyArrayBtn" title="Load dataset for both panels">Load Dataset</button>
+            <button class="btn ghost" id="randomDatasetBtn" title="Generate random dataset">↻ Random</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn success" id="startBothBtn" title="Run both algorithms simultaneously">▶ Run Both</button>
+            <button class="btn secondary" id="pauseBothBtn" title="Pause playback">⏸ Pause</button>
+            <button class="btn primary" id="stepBothBtn" title="Advance one step on both panels">Next Step →</button>
+            <button class="btn danger" id="resetBothBtn" title="Reset both algorithms">Reset Both</button>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Enter 2–15 whole numbers (1–999) separated by commas. Both algorithms receive an exact clone of this array.
+        </span>
+    </section>
+
+    <!-- SIDE-BY-SIDE VISUALIZATION WORKSPACE -->
+    <section class="workspace compare-workspace">
+
+        <!-- PANEL A -->
+        <section class="compare-panel">
+            <div class="compare-panel-head">
+                <div class="field" style="display: flex; align-items: center; gap: 8px;">
+                    <label for="algoASelect" style="font-weight: bold; font-size: 12px;">Panel A:</label>
+                    <select id="algoASelect" style="padding: 5px 8px; border-radius: 6px; font-weight: bold;">
+                        <option value="bubble" selected>Bubble Sort</option>
+                        <option value="selection">Selection Sort</option>
+                        <option value="insertion">Insertion Sort</option>
+                        <option value="merge">Merge Sort</option>
+                        <option value="quick">Quick Sort</option>
+                        <option value="heap">Heap Sort</option>
+                    </select>
+                </div>
+                <span class="panel-tag" id="statusA">Ready</span>
+            </div>
+
+            <div class="compare-panel-body">
+                <div class="compare-bars-wrap" id="barsA"></div>
+
+                <div class="metrics-grid">
+                    <div class="metric-pill"><span>Comparisons</span><strong id="compA">0</strong></div>
+                    <div class="metric-pill"><span>Swaps / Writes</span><strong id="swapsA">0</strong></div>
+                    <div class="metric-pill"><span>Total Steps</span><strong id="stepsA">0</strong></div>
+                    <div class="metric-pill"><span>Exec Time (approx.)</span><strong id="timeA">0.00 ms</strong></div>
+                </div>
+
+                <div class="detail-block" style="padding: 10px; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;">
+                    <h4 style="margin: 0 0 4px; font-size: 11px; color: var(--muted);">Panel A Status</h4>
+                    <p id="msgA" style="font-size: 12px; margin: 0;">Ready to run.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PANEL B -->
+        <section class="compare-panel">
+            <div class="compare-panel-head">
+                <div class="field" style="display: flex; align-items: center; gap: 8px;">
+                    <label for="algoBSelect" style="font-weight: bold; font-size: 12px;">Panel B:</label>
+                    <select id="algoBSelect" style="padding: 5px 8px; border-radius: 6px; font-weight: bold;">
+                        <option value="bubble">Bubble Sort</option>
+                        <option value="selection" selected>Selection Sort</option>
+                        <option value="insertion">Insertion Sort</option>
+                        <option value="merge">Merge Sort</option>
+                        <option value="quick">Quick Sort</option>
+                        <option value="heap">Heap Sort</option>
+                    </select>
+                </div>
+                <span class="panel-tag" id="statusB">Ready</span>
+            </div>
+
+            <div class="compare-panel-body">
+                <div class="compare-bars-wrap" id="barsB"></div>
+
+                <div class="metrics-grid">
+                    <div class="metric-pill"><span>Comparisons</span><strong id="compB">0</strong></div>
+                    <div class="metric-pill"><span>Swaps / Writes</span><strong id="swapsB">0</strong></div>
+                    <div class="metric-pill"><span>Total Steps</span><strong id="stepsB">0</strong></div>
+                    <div class="metric-pill"><span>Exec Time (approx.)</span><strong id="timeB">0.00 ms</strong></div>
+                </div>
+
+                <div class="detail-block" style="padding: 10px; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px;">
+                    <h4 style="margin: 0 0 4px; font-size: 11px; color: var(--muted);">Panel B Status</h4>
+                    <p id="msgB" style="font-size: 12px; margin: 0;">Ready to run.</p>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- COMPARISON SUMMARY / BENCHMARK TABLE -->
+    <section class="comparison-summary-card">
+        <h4>Benchmark &amp; Correctness Summary</h4>
+        <div id="benchmarkSummaryText" style="font-size: 13px; color: var(--text-secondary);">
+            Load a dataset and click "Run Both" to generate side-by-side performance metrics, operation counts, and verification status.
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/compare.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

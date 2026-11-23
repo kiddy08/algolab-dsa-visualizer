@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Min / Max Heap Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="tree-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>insert / extract: <strong>O(log n)</strong></span>
+        <span>peek: <strong>O(1)</strong></span>
+        <span>buildHeap: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Min / Max Heap Visualizer</h2>
+            <span class="tree-info-badge" title="Complete binary tree stored in an array — parent at (i - 1) / 2, children at 2i + 1 and 2i + 2. Enter a value (1–999, max 15 nodes).">i</span>
+            <p>A complete binary tree stored in an array — parent at (i - 1) / 2, children at 2i + 1 and 2i + 2.</p>
+
+            <div class="type-switch">
+                <label for="treeType">Tree type</label>
+                <select id="treeType" title="Choose a tree visualizer to open">
+                    <option value="bst.html">Binary Search Tree</option>
+                    <option value="tree_traversals.html">Tree Traversals</option>
+                    <option value="heap.html" selected>Min/Max Heap</option>
+                    <option value="avl_tree.html">AVL Tree</option>
+                    <option value="trie.html">Trie</option>
+                </select>
+                <button class="btn primary" id="openTreeBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> Root (top)</span>
+                <span><i class="dot orange"></i> Comparing</span>
+                <span><i class="dot red"></i> Swapping / Removed</span>
+                <span><i class="dot green"></i> Placed / Extracted</span>
+                <span><i class="dot pink"></i> Active path</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="heapModeSelect">Heap mode</label>
+                <select id="heapModeSelect" title="Switch between Min-Heap and Max-Heap">
+                    <option value="min" selected>Min-Heap (smallest on top)</option>
+                    <option value="max">Max-Heap (largest on top)</option>
+                </select>
+
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Value</label>
+                <input
+                    type="number"
+                    id="valueInput"
+                    value="15"
+                    min="1"
+                    max="999"
+                    inputmode="numeric"
+                    autocomplete="off"
+                >
+            </div>
+            <button class="btn ghost" id="randomValueBtn" title="Suggest another value">↻</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="insertBtn" title="Insert value and sift up">Insert</button>
+            <button class="btn secondary" id="extractBtn" title="Remove root and sift down">Extract Min</button>
+            <button class="btn ghost" id="peekBtn" title="Read the root value in O(1)">Peek</button>
+        </div>
+
+        <div class="op-group">
+            <div class="field">
+                <label for="arrayInput">Array</label>
+                <input
+                    type="text"
+                    id="arrayInput"
+                    value="40, 20, 60, 10, 50, 30, 70"
+                    placeholder="40, 20, 60, 10, 50, 30, 70"
+                    autocomplete="off"
+                >
+            </div>
+            <button class="btn ghost" id="applyArrayBtn" title="Run O(n) Floyd buildHeap on array">Build Heap</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomHeapBtn" title="Generate a random heap">New Random Heap</button>
+            <button class="btn ghost" id="clearBtn" title="Clear the heap">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Enter a value from 1 to 999 (max 15 nodes). Switch Min-Heap / Max-Heap in the top right.
+        </span>
+    </section>
+
+    <section class="workspace tree-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag" id="codePanelTag">MinHeap.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">class BinaryHeap {</span>
+<span class="code-line" data-line="2">    int[] heap = new int[15];</span>
+<span class="code-line" data-line="3">    int size = 0;</span>
+<span class="code-line" data-line="4"></span>
+<span class="code-line" data-line="5">    void insert(int val) {</span>
+<span class="code-line" data-line="6">        if (size == heap.length) throw new RuntimeException("Full");</span>
+<span class="code-line" data-line="7">        int i = size++;</span>
+<span class="code-line" data-line="8">        heap[i] = val;</span>
+<span class="code-line" data-line="9">        while (i &gt; 0 &amp;&amp; outOfOrder(parent(i), i)) {</span>
+<span class="code-line" data-line="10">            swap(i, parent(i));</span>
+<span class="code-line" data-line="11">            i = parent(i);</span>
+<span class="code-line" data-line="12">        }</span>
+<span class="code-line" data-line="13">    }</span>
+<span class="code-line" data-line="14"></span>
+<span class="code-line" data-line="15">    int extractRoot() {</span>
+<span class="code-line" data-line="16">        if (size == 0) throw new RuntimeException("Empty");</span>
+<span class="code-line" data-line="17">        int root = heap[0];</span>
+<span class="code-line" data-line="18">        heap[0] = heap[--size];</span>
+<span class="code-line" data-line="19">        siftDown(0);</span>
+<span class="code-line" data-line="20">        return root;</span>
+<span class="code-line" data-line="21">    }</span>
+<span class="code-line" data-line="22"></span>
+<span class="code-line" data-line="23">    void siftDown(int i) {</span>
+<span class="code-line" data-line="24">        while (2 * i + 1 &lt; size) {</span>
+<span class="code-line" data-line="25">            int best = 2 * i + 1, right = 2 * i + 2;</span>
+<span class="code-line" data-line="26">            if (right &lt; size &amp;&amp; outOfOrder(best, right))</span>
+<span class="code-line" data-line="27">                best = right;</span>
+<span class="code-line" data-line="28">            if (!outOfOrder(i, best)) break;</span>
+<span class="code-line" data-line="29">            swap(i, best);</span>
+<span class="code-line" data-line="30">            i = best;</span>
+<span class="code-line" data-line="31">        }</span>
+<span class="code-line" data-line="32">    }</span>
+<span class="code-line" data-line="33"></span>
+<span class="code-line" data-line="34">    int peek() {</span>
+<span class="code-line" data-line="35">        if (size == 0) throw new RuntimeException("Empty");</span>
+<span class="code-line" data-line="36">        return heap[0];</span>
+<span class="code-line" data-line="37">    }</span>
+<span class="code-line" data-line="38"></span>
+<span class="code-line" data-line="39">    void buildHeap() {</span>
+<span class="code-line" data-line="40">        for (int i = size / 2 - 1; i &gt;= 0; i--)</span>
+<span class="code-line" data-line="41">            siftDown(i);</span>
+<span class="code-line" data-line="42">    }</span>
+<span class="code-line" data-line="43">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: HEAP VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Heap Tree &amp; Array Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="treeBadge">Min-Heap · 7 / 15 nodes · height 3</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="tree-canvas-wrap" id="treeCanvasWrap">
+                <svg id="treeSvg" class="tree-svg" width="680" height="280"></svg>
+            </div>
+
+            <div class="tree-aux-box">
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="arrayStripLabel">Backing array:</span>
+                    <div class="tree-aux-items" id="heapArrayBox">
+                        <span class="tree-aux-empty">Heap is empty.</span>
+                    </div>
+                </div>
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label">Index math:</span>
+                    <div class="tree-aux-items" id="formulaBox">
+                        <span class="tree-aux-empty">parent(i) = (i - 1) / 2 · left(i) = 2i + 1 · right(i) = 2i + 2</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose a value and click Insert, Extract, Peek or Build Heap.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Heap state</span>
+                <strong id="pointerInfo">mode = Min-Heap · root = 10 · size = 7</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Insert a value, extract the root, or build a heap from an array.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No operation yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    A binary heap is a complete binary tree stored flat inside an array without any node pointers.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    In a Min-Heap every parent &lt;= its children. In a Max-Heap every parent &gt;= its children.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success" disabled>▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/heap.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

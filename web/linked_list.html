@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Singly Linked List Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/linked_list.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="ll-page" data-list-type="singly">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Head operations: <strong>O(1)</strong></span>
+        <span>Tail / index / search: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Singly Linked List Visualizer</h2>
+            <span class="page-info-badge" title="Each node stores data and a next pointer. The last node points to null. Value 1 to 999, Index 0 is the first node.">i</span>
+            <p>Each node stores data and a next pointer. The last node points to null.</p>
+
+            <div class="type-switch">
+                <label for="listType">List type</label>
+                <select id="listType" title="Choose a list type to open its visualizer">
+                    <option value="linked_list.html" selected>Singly Linked List</option>
+                    <option value="doubly_linked_list.html">Doubly Linked List</option>
+                    <option value="circular_linked_list.html">Circular Linked List</option>
+                    <option value="doubly_circular_linked_list.html">Doubly Circular Linked List</option>
+                </select>
+                <button class="btn primary" id="openListBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot purple"></i> HEAD</span>
+                <span><i class="dot orange"></i> Scanner (ptr / tail)</span>
+                <span><i class="dot green"></i> New node</span>
+                <span><i class="dot pink"></i> Pointer being changed</span>
+                <span><i class="dot red"></i> Removed</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="valueInput">Node value</label>
+                <input type="number" id="valueInput" value="97" min="1" max="999" inputmode="numeric" autocomplete="off">
+            </div>
+            <button class="btn ghost" id="randomValueBtn" title="Random value">↻</button>
+            <div class="field">
+                <label for="indexInput">Target index</label>
+                <input type="number" id="indexInput" value="2" min="0" max="9" inputmode="numeric" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="op-group">
+            <button class="btn primary" id="insertBegBtn" title="Add a node at the beginning">Insert Beg</button>
+            <button class="btn primary" id="insertEndBtn" title="Add a node at the end">Insert End</button>
+            <button class="btn primary" id="insertAtBtn" title="Add a node at the target index">Insert at Index</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn secondary" id="deleteBegBtn" title="Remove the first node">Delete Beg</button>
+            <button class="btn secondary" id="deleteEndBtn" title="Remove the last node">Delete End</button>
+            <button class="btn secondary" id="deleteAtBtn" title="Remove the node at the target index">Delete at Index</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="searchBtn" title="Find the node that holds the value">Search Value</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="randomListBtn" title="Load a random list">New List</button>
+            <button class="btn ghost" id="clearBtn" title="Remove every node">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Value 1 to 999. Index 0 is the first node.
+        </span>
+    </section>
+
+    <section class="workspace ll-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">LinkedList.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code id="codeBox"></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: LIST VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Linked List Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="listBadge">5 nodes</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="ll-canvas-wrap" id="canvasWrap">
+                <div class="ll-canvas" id="canvas"></div>
+            </div>
+
+            <div class="ll-spawn">
+                <div class="ll-spawn-title">NEW / REMOVED NODE (HEAP)</div>
+                <div class="ll-spawn-body" id="spawnBox"></div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose an operation above.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Pointers</span>
+                <strong id="pointerInfo">head = null</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Choose an operation above.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No variables yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    Every operation changes pointers, not the position of nodes in memory.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    A linked list stores each node separately and joins them with pointers.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any operation</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success" disabled>▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/linked_list_code.js"></script>
+<script src="js/linked_list.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

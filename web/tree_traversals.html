@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Tree Traversals Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tree.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="tree-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Time: <strong>O(n)</strong></span>
+        <span>Space: <strong>O(n)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Tree Traversals Visualizer</h2>
+            <span class="tree-info-badge" title="Visit every node using Depth-First (Inorder, Preorder, Postorder) or Breadth-First (Level-Order) search. Enter 1–15 keys separated by commas and click Load Tree.">i</span>
+            <p>Visit every node in a binary tree using Depth-First (Inorder, Preorder, Postorder) or Breadth-First (Level-Order) search.</p>
+
+            <div class="type-switch">
+                <label for="treeType">Tree type</label>
+                <select id="treeType" title="Choose a tree visualizer to open">
+                    <option value="bst.html">Binary Search Tree</option>
+                    <option value="tree_traversals.html" selected>Tree Traversals</option>
+                    <option value="heap.html">Min/Max Heap</option>
+                    <option value="avl_tree.html">AVL Tree</option>
+                    <option value="trie.html">Trie</option>
+                </select>
+                <button class="btn primary" id="openTreeBtn">Open selected visualizer</button>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot orange"></i> Active node</span>
+                <span><i class="dot purple"></i> In Stack / Queue</span>
+                <span><i class="dot green"></i> Visited</span>
+                <span><i class="dot pink"></i> Active edge</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <div class="op-group">
+            <button class="btn primary" id="inorderBtn" title="Left, Root, Right (DFS)">Inorder (L-N-R)</button>
+            <button class="btn primary" id="preorderBtn" title="Root, Left, Right (DFS)">Preorder (N-L-R)</button>
+            <button class="btn primary" id="postorderBtn" title="Left, Right, Root (DFS)">Postorder (L-R-N)</button>
+            <button class="btn primary" id="levelorderBtn" title="Level by level using a Queue (BFS)">Level-order (BFS)</button>
+        </div>
+
+        <div class="op-group">
+            <div class="field">
+                <label for="arrayInput">Keys</label>
+                <input
+                    type="text"
+                    id="arrayInput"
+                    value="50, 30, 70, 20, 40, 60, 80"
+                    placeholder="50, 30, 70, 20, 40, 60, 80"
+                    autocomplete="off"
+                >
+            </div>
+            <button class="btn ghost" id="applyArrayBtn" title="Build tree from comma-separated keys">Load Tree</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="balancedPresetBtn" title="Load a balanced 7-node tree">Balanced</button>
+            <button class="btn ghost" id="skewedPresetBtn" title="Load a right-skewed chain">Skewed</button>
+            <button class="btn ghost" id="randomTreeBtn" title="Generate a random tree">New Random Tree</button>
+            <button class="btn ghost" id="clearBtn" title="Empty the tree">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-animate
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint">
+            Click any traversal button above, or enter 1–15 keys separated by commas and click Load Tree.
+        </span>
+    </section>
+
+    <section class="workspace tree-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">TreeTraversals.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+<pre><code><span class="code-line" data-line="1">void inorder(Node node) {</span>
+<span class="code-line" data-line="2">    if (node == null) return;</span>
+<span class="code-line" data-line="3">    inorder(node.left);</span>
+<span class="code-line" data-line="4">    visit(node); // Left → Root → Right</span>
+<span class="code-line" data-line="5">    inorder(node.right);</span>
+<span class="code-line" data-line="6">}</span>
+<span class="code-line" data-line="7"></span>
+<span class="code-line" data-line="8">void preorder(Node node) {</span>
+<span class="code-line" data-line="9">    if (node == null) return;</span>
+<span class="code-line" data-line="10">    visit(node); // Root → Left → Right</span>
+<span class="code-line" data-line="11">    preorder(node.left);</span>
+<span class="code-line" data-line="12">    preorder(node.right);</span>
+<span class="code-line" data-line="13">}</span>
+<span class="code-line" data-line="14"></span>
+<span class="code-line" data-line="15">void postorder(Node node) {</span>
+<span class="code-line" data-line="16">    if (node == null) return;</span>
+<span class="code-line" data-line="17">    postorder(node.left);</span>
+<span class="code-line" data-line="18">    postorder(node.right);</span>
+<span class="code-line" data-line="19">    visit(node); // Left → Right → Root</span>
+<span class="code-line" data-line="20">}</span>
+<span class="code-line" data-line="21"></span>
+<span class="code-line" data-line="22">void levelOrder(Node root) {</span>
+<span class="code-line" data-line="23">    if (root == null) return;</span>
+<span class="code-line" data-line="24">    Queue&lt;Node&gt; q = new LinkedList&lt;&gt;();</span>
+<span class="code-line" data-line="25">    q.add(root);</span>
+<span class="code-line" data-line="26">    while (!q.isEmpty()) {</span>
+<span class="code-line" data-line="27">        Node curr = q.poll();</span>
+<span class="code-line" data-line="28">        visit(curr);</span>
+<span class="code-line" data-line="29">        if (curr.left != null) q.add(curr.left);</span>
+<span class="code-line" data-line="30">        if (curr.right != null) q.add(curr.right);</span>
+<span class="code-line" data-line="31">    }</span>
+<span class="code-line" data-line="32">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: TREE TRAVERSAL VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Tree Traversal Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current step</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="treeBadge">7 nodes · height 3</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="tree-canvas-wrap" id="treeCanvasWrap">
+                <svg id="treeSvg" class="tree-svg" width="680" height="300"></svg>
+            </div>
+
+            <div class="tree-aux-box">
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="visitedLabel">Visited output:</span>
+                    <div class="tree-aux-items" id="visitedBox">
+                        <span class="tree-aux-empty">No nodes visited yet.</span>
+                    </div>
+                </div>
+                <div class="tree-aux-row">
+                    <span class="tree-aux-label" id="structureLabel">Call Stack:</span>
+                    <div class="tree-aux-items" id="structureBox">
+                        <span class="tree-aux-empty">empty</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Choose Inorder, Preorder, Postorder or Level-order to trace the traversal.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Traversal status</span>
+                <strong id="pointerInfo">mode = none · visited = 0 / 7</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Click a traversal button above to watch how every node is visited.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No traversal running yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    DFS traversals use the call stack to explore subtrees deeply, while BFS uses a FIFO queue to visit level by level.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    All four traversals visit every node exactly once in O(n) time. Badges on nodes show their visit order (1, 2, 3...).
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Operation history</h4>
+                <div class="array-values history-values" id="historyBox"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step through any traversal</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success" disabled>▶ Replay Operation</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/tree_traversals.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

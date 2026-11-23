@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Graph Algorithms Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/graph.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="graph-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span id="difficultyBadge">Difficulty: <strong>Beginner</strong></span>
+        <span id="timeBadge">Time: <strong>O(V + E)</strong></span>
+        <span id="spaceBadge">Space: <strong>O(V)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div class="heading-main">
+            <h2>Graph Visualizer</h2>
+            <span class="page-info-badge" title="Click canvas to add nodes, drag nodes to reposition, click two nodes in Connect mode to add an edge, or edit the Edge List directly.">i</span>
+
+            <div class="type-switch">
+                <label for="algoSelect">Algorithm</label>
+                <select id="algoSelect" title="Choose a graph algorithm">
+                    <option value="bfs" selected>Breadth-First Search (BFS)</option>
+                    <option value="dfs">Depth-First Search (Iterative Stack)</option>
+                    <option value="dfs_recursive">Depth-First Search (Recursive)</option>
+                    <option value="dijkstra">Dijkstra's Shortest Path</option>
+                    <option value="astar">A* Search Algorithm</option>
+                </select>
+            </div>
+
+            <div class="type-switch">
+                <label for="presetSelect">Preset</label>
+                <select id="presetSelect" title="Load a predefined graph topology">
+                    <option value="weighted" selected>Weighted Graph</option>
+                    <option value="simple">Simple Graph</option>
+                    <option value="linear">Linear Graph</option>
+                    <option value="star">Star Graph</option>
+                    <option value="tree">Tree Graph</option>
+                    <option value="cyclic">Cyclic Graph</option>
+                    <option value="disconnected">Disconnected Graph</option>
+                    <option value="complex">Complex Graph</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="heading-side">
+            <div class="legend">
+                <span><i class="dot orange"></i> Current</span>
+                <span><i class="dot green"></i> Visited</span>
+                <span><i class="dot yellow"></i> Current edge</span>
+                <span><i class="dot bright-green"></i> Final path</span>
+                <span><i class="dot red"></i> Invalid / Error</span>
+            </div>
+
+            <div class="heading-settings">
+                <label for="speedSelect">Speed</label>
+                <select id="speedSelect">
+                    <option value="1400">Slow</option>
+                    <option value="800" selected>Normal</option>
+                    <option value="400">Fast</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPACT GRAPH SETTINGS & ALGORITHM TOOLBAR -->
+    <section class="search-settings">
+        <div class="op-group">
+            <div class="field">
+                <label for="sourceSelect">Start</label>
+                <select id="sourceSelect" title="Select source / starting node"></select>
+            </div>
+            <div class="field" id="destField">
+                <label for="destSelect">Goal</label>
+                <select id="destSelect" title="Select destination node"></select>
+            </div>
+            <div class="field" id="heuristicField" hidden>
+                <label for="heuristicSelect">h(n)</label>
+                <select id="heuristicSelect" title="Heuristic function for A*">
+                    <option value="euclidean" selected>Euclidean</option>
+                    <option value="zero">Zero (h=0)</option>
+                </select>
+            </div>
+            <button class="btn primary" id="runAlgoBtn" title="Run selected algorithm">▶ Run</button>
+        </div>
+
+        <div class="op-group">
+            <label class="auto-toggle" title="Toggle Directed vs Undirected edges">
+                <input type="checkbox" id="directedToggle">
+                Directed
+            </label>
+            <label class="auto-toggle" title="Toggle Weighted vs Unweighted edges">
+                <input type="checkbox" id="weightedToggle" checked>
+                Weighted
+            </label>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="connectModeBtn" title="Click two nodes to connect them with an edge">Connect Nodes</button>
+            <div class="field" id="weightField">
+                <label for="edgeWeightInput">Wt</label>
+                <input type="number" id="edgeWeightInput" value="4" min="0" max="999" title="Edge weight (0–999)">
+            </div>
+            <button class="btn ghost" id="renameNodeBtn" title="Rename selected node">Rename</button>
+            <button class="btn ghost" id="deleteSelectedBtn" title="Delete selected node or edge">Delete Sel</button>
+        </div>
+
+        <div class="op-group">
+            <button class="btn ghost" id="viewMatrixBtn" title="View Adjacency List &amp; Adjacency Matrix">View Matrix</button>
+            <button class="btn ghost" id="edgeEditorBtn" title="Open manual Edge List text editor">Edge List</button>
+            <button class="btn ghost" id="challengeBtn" title="Try an interactive Graph Challenge">Challenge</button>
+            <button class="btn ghost" id="randomGraphBtn" title="Generate a random graph">Random</button>
+            <button class="btn ghost" id="clearGraphBtn" title="Clear all nodes and edges">Clear</button>
+            <label class="auto-toggle">
+                <input type="checkbox" id="autoToggle" checked>
+                Auto-play
+            </label>
+        </div>
+
+        <span class="array-hint" id="arrayHint"></span>
+    </section>
+
+    <!-- MOBILE PANEL TABS -->
+    <div class="graph-mobile-tabs" id="mobileTabs">
+        <button class="graph-tab-btn" data-panel="code">1. Java Code</button>
+        <button class="graph-tab-btn is-active" data-panel="viz">2. Graph</button>
+        <button class="graph-tab-btn" data-panel="learn">3. Explanation</button>
+    </div>
+
+    <section class="workspace graph-workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel" id="codePanel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag" id="codeFileName">BreadthFirstSearch.java</span>
+            </div>
+
+            <div class="code-content code-compact">
+                <pre><code id="javaCodeContainer"></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = executing line
+            </div>
+        </section>
+
+        <!-- PANEL 2: GRAPH VISUALIZATION -->
+        <section class="panel chart-panel" id="vizPanel">
+            <div class="panel-heading">
+                <h3>2. Graph Visualization</h3>
+                <span class="panel-tag" id="status">Ready</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current step</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div class="stack-badges">
+                <span class="stack-badge is-ok" id="graphPropsBadge">6 nodes · 8 edges · Undirected · Weighted · Connected · Cyclic</span>
+                <span class="stack-badge is-result" id="returnBadge" hidden></span>
+            </div>
+
+            <div class="graph-canvas-wrap" id="graphCanvasWrap">
+                <div class="graph-canvas-tools">
+                    <button class="graph-tool-btn" id="zoomInBtn" title="Zoom In">+</button>
+                    <button class="graph-tool-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+                    <button class="graph-tool-btn" id="resetViewBtn" title="Reset Zoom &amp; Pan">100%</button>
+                </div>
+
+                <svg id="graphSvg" class="graph-svg" viewBox="0 0 680 370" preserveAspectRatio="xMidYMid meet"></svg>
+
+                <!-- Manual Edge List Editor Drawer -->
+                <div class="graph-editor-drawer" id="edgeEditorDrawer" hidden>
+                    <div class="graph-drawer-head">
+                        <span>Manual Graph Input (e.g. A-B or A-B:4)</span>
+                        <button class="graph-tool-btn" id="closeEditorBtn" title="Close editor">✕</button>
+                    </div>
+                    <textarea id="edgeListTextarea" class="graph-edge-textarea" spellcheck="false" placeholder="A-B:4&#10;A-C:2&#10;B-D:5"></textarea>
+                    <span class="graph-drawer-error" id="editorErrorText"></span>
+                    <div class="graph-drawer-actions">
+                        <button class="btn primary" id="applyEdgeListBtn">Apply Graph</button>
+                        <span style="font-size: 10px; color: var(--muted);">Use -&gt; for directed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Internal Data Structures -->
+            <div class="graph-ds-box" id="dsContainer">
+                <div class="graph-ds-row">
+                    <span class="graph-ds-label" id="dsPrimaryLabel">Queue:</span>
+                    <div class="graph-ds-items" id="dsPrimaryBox">
+                        <span class="tree-aux-empty">empty</span>
+                    </div>
+                </div>
+                <div class="graph-ds-row">
+                    <span class="graph-ds-label" id="dsSecondaryLabel">Visited Set:</span>
+                    <div class="graph-ds-items" id="dsSecondaryBox">
+                        <span class="tree-aux-empty">empty</span>
+                    </div>
+                </div>
+                <div id="dsTableWrap"></div>
+            </div>
+
+            <p class="chart-caption" id="chartCaption">
+                Click canvas to add nodes, drag nodes to move, or click Run to animate.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>State</span>
+                <strong id="pointerInfo">start = A · visited = 0</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: LEARNING EXPLANATION -->
+        <section class="panel explanation-panel" id="learnPanel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action" id="currentAction">
+                <div class="action-head">
+                    <span class="eyebrow">CURRENT ACTION</span>
+                    <span class="step-chip" id="stepChip">Ready</span>
+                </div>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message" aria-live="polite">Select an algorithm and click Run to watch every step.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Why did it happen?</h4>
+                <p id="whyText">Graph algorithms explore vertices and edges systematically using queues, stacks, or priority queues.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Selected node / edge &amp; What happens next</h4>
+                <p id="selectedEdgeText">Selected: None</p>
+                <p id="nextStepText" style="margin-top: 4px; color: var(--muted);">Next: Click Run or Next Step.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Data structure state</h4>
+                <p id="dsStateText">Queue: [] · Visited: []</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Live Statistics &amp; Complexity</h4>
+                <div class="graph-stats-grid" id="statsGrid"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 1 of 1</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- STEP-BY-STEP CONTROLS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Step backward or forward anytime</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary" disabled>Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Replay</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+
+    <!-- ADJACENCY MATRIX & LIST MODAL -->
+    <div class="graph-matrix-modal" id="matrixModal" hidden>
+        <div class="graph-matrix-card">
+            <div class="graph-matrix-head">
+                <h3>Graph Data Representations</h3>
+                <button class="graph-tool-btn" id="closeMatrixModalBtn" title="Close modal">✕</button>
+            </div>
+            <div class="graph-matrix-body">
+                <div class="graph-matrix-section">
+                    <h4>Adjacency Matrix</h4>
+                    <div class="matrix-table-wrap" id="matrixTableContainer"></div>
+                </div>
+                <div class="graph-matrix-section">
+                    <h4>Adjacency List</h4>
+                    <div class="matrix-table-wrap" id="adjacencyListContainer" style="padding: 12px; font-family: Consolas, monospace; font-size: 12px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/graph_model.js"></script>
+<script src="js/graph_algorithms.js"></script>
+<script src="js/graph_renderer.js"></script>
+<script src="js/graph.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

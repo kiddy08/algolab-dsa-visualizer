@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Binary Search Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body>
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+    <div class="complexity">
+        <span>Time: <strong>O(log n)</strong></span>
+        <span>Space: <strong>O(1)</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div>
+            <h2>Binary Search</h2>
+            <span class="page-info-badge" title="Find a target by repeatedly dividing a sorted array in half. Enter 2–15 integers separated by commas.">i</span>
+            <p>Find a target by repeatedly dividing a sorted array.</p>
+        </div>
+        <div class="legend">
+            <span><i class="dot orange"></i> Middle</span>
+            <span><i class="dot green"></i> Found</span>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <label for="arrayInput">Array:</label>
+        <input
+            type="text"
+            id="arrayInput"
+            value="10, 20, 30, 40, 50, 60, 70"
+            placeholder="10, 20, 30"
+        >
+        <button id="applyArrayBtn" class="btn primary">
+            Load Array
+        </button>
+        <button id="randomBtn" class="btn secondary">New Array</button>
+
+        <label for="targetInput">Target:</label>
+        <input type="number" id="targetInput" value="50">
+        <button id="applyTargetBtn" class="btn primary">
+            Set Target
+        </button>
+        <span class="array-hint" id="arrayHint">Enter 2–15 whole numbers separated by commas.</span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- Java code -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">BinarySearch.java</span>
+            </div>
+
+            <div class="code-content">
+<pre><code><span class="code-line" data-line="1">int low = 0;</span>
+<span class="code-line" data-line="2">int high = arr.length - 1;</span>
+<span class="code-line" data-line="3">while (low &lt;= high) {</span>
+<span class="code-line" data-line="4">    int mid = low + (high - low) / 2;</span>
+<span class="code-line" data-line="5">    if (arr[mid] == target) return mid;</span>
+<span class="code-line" data-line="6">    if (arr[mid] &lt; target) low = mid + 1;</span>
+<span class="code-line" data-line="7">    else high = mid - 1;</span>
+<span class="code-line" data-line="8">}</span>
+<span class="code-line" data-line="9">return -1;</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- Array visualization -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Array Visualization</h3>
+                <span class="panel-tag">Live View</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Target</span>
+                <strong id="targetDisplay">50</strong>
+            </div>
+
+            <div id="bars" class="bars"></div>
+
+            <div class="chart-caption">
+                <span>Orange = Middle</span>
+                <span>Green = Found</span>
+            </div>
+
+            <div class="detail-block">
+                <p id="rangeDisplay">Low: 0 | Mid: - | High: 6</p>
+            </div>
+        </section>
+
+        <!-- Explanation -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <h2 id="actionType">Ready to Search</h2>
+                <p id="message">Click Next Step to begin.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Values Involved</h4>
+                <p id="valuesInvolved">Target = 50</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">Binary Search checks the middle element first.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">Binary Search requires a sorted array.</p>
+            </div>
+
+            <div class="mini-arrays">
+                <div class="mini-array-box">
+                    <h4>Before</h4>
+                    <div id="beforeArray" class="array-values"></div>
+                </div>
+                <div class="mini-array-box">
+                    <h4>Current</h4>
+                    <div id="afterArray" class="array-values"></div>
+                </div>
+            </div>
+
+            <div class="step-counter">
+                <span id="status">Ready to search</span>
+            </div>
+        </section>
+
+    </section>
+
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the search</strong>
+            <span>Follow each step</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary">Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Start Search</button>
+            
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+    
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/binary_search.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>

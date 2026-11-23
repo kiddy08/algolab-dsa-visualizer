@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Master Data Structures and Algorithms visually through step-by-step animations, real Java implementations, and interactive data structure playgrounds.">
+    <title>AlgoLab | Interactive DSA Learning Platform</title>
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body class="theme-dark">
+
+    <!-- ==========================================
+         1. NAVIGATION BAR
+    =========================================== -->
+    <header class="site-nav">
+        <div class="container nav-inner">
+            <a href="#top" class="brand-logo" aria-label="AlgoLab Home">
+                <span class="brand-mark" aria-hidden="true">⚡</span>
+                Algo<span>Lab</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="#categories">Categories</a>
+                <a href="#roadmap">Learning Roadmap</a>
+                <a href="#why-algolab">Why AlgoLab</a>
+                <a href="#features">Features</a>
+                <a href="#complexity-guide">Complexity Guide</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-btn" id="homeThemeToggle" aria-label="Toggle color theme" title="Switch to light mode">☀</button>
+                <a href="#categories" class="btn btn-primary">Explore Algorithms →</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         2. HERO SECTION
+    =========================================== -->
+    <section class="hero" id="top">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Interactive DSA Learning Platform · 24 Visualizer Pages · 27 Algorithm Entries
+                </div>
+
+                <h1>
+                    Master Data Structures &amp; <span>Algorithms Visually.</span>
+                </h1>
+
+                <p class="hero-lead">
+                    Understand algorithms step by step through interactive visualizations,
+                    real Java implementations, and practical learning experiences.
+                </p>
+
+                <div class="hero-cta-row">
+                    <a href="#categories" class="btn btn-primary">Explore Algorithms →</a>
+                    <a href="#roadmap" class="btn btn-secondary">Start Learning Roadmap</a>
+                </div>
+
+                <div class="hero-highlights">
+                    <span class="hero-highlight-item"><strong>✔</strong> Line-by-line Java sync</span>
+                    <span class="hero-highlight-item"><strong>✔</strong> Forward &amp; backward step timeline</span>
+                    <span class="hero-highlight-item"><strong>✔</strong> Interactive Quiz &amp; Variable Watch</span>
+                </div>
+            </div>
+
+            <!-- Interactive Algorithm Preview Illustration -->
+            <div class="hero-preview-card" aria-label="Interactive visualizer preview">
+                <div class="preview-window-bar">
+                    <div class="window-dots"><i></i><i></i><i></i></div>
+                    <span class="window-tag">1. Java Code · 2. Live Visualization · 3. Step Explanation</span>
+                </div>
+
+                <svg class="preview-svg" viewBox="0 0 440 205" role="img" aria-label="Tree and Graph visualization preview">
+                    <!-- Left mini binary search tree -->
+                    <line x1="115" y1="42" x2="65" y2="98" stroke="#6366f1" stroke-width="2.5"/>
+                    <line x1="115" y1="42" x2="165" y2="98" stroke="#ec4899" stroke-width="3"/>
+                    <line x1="65" y1="98" x2="40" y2="155" stroke="#6366f1" stroke-width="2.2"/>
+                    <line x1="65" y1="98" x2="90" y2="155" stroke="#6366f1" stroke-width="2.2"/>
+                    <line x1="165" y1="98" x2="140" y2="155" stroke="#22c55e" stroke-width="3"/>
+                    <line x1="165" y1="98" x2="190" y2="155" stroke="#6366f1" stroke-width="2.2"/>
+
+                    <circle cx="115" cy="42" r="16" fill="#131c2e" stroke="#6366f1" stroke-width="2.5"/>
+                    <text x="115" y="46" fill="#e2e8f0" font-size="11" font-weight="bold" text-anchor="middle">50</text>
+
+                    <circle cx="65" cy="98" r="15" fill="#131c2e" stroke="#6366f1" stroke-width="2.5"/>
+                    <text x="65" y="102" fill="#e2e8f0" font-size="11" font-weight="bold" text-anchor="middle">30</text>
+
+                    <circle cx="165" cy="98" r="15" fill="#3b2a0d" stroke="#f59e0b" stroke-width="3"/>
+                    <text x="165" y="102" fill="#fde68a" font-size="11" font-weight="bold" text-anchor="middle">70</text>
+
+                    <circle cx="40" cy="155" r="13" fill="#131c2e" stroke="#6366f1" stroke-width="2"/>
+                    <text x="40" y="159" fill="#cbd5e1" font-size="10" font-weight="bold" text-anchor="middle">20</text>
+
+                    <circle cx="90" cy="155" r="13" fill="#131c2e" stroke="#6366f1" stroke-width="2"/>
+                    <text x="90" y="159" fill="#cbd5e1" font-size="10" font-weight="bold" text-anchor="middle">40</text>
+
+                    <circle cx="140" cy="155" r="14" fill="#16a34a" stroke="#4ade80" stroke-width="2.5"/>
+                    <text x="140" y="159" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">60</text>
+
+                    <circle cx="190" cy="155" r="13" fill="#131c2e" stroke="#6366f1" stroke-width="2"/>
+                    <text x="190" y="159" fill="#cbd5e1" font-size="10" font-weight="bold" text-anchor="middle">80</text>
+
+                    <!-- Divider -->
+                    <line x1="228" y1="20" x2="228" y2="185" stroke="#1e293b" stroke-dasharray="4 4"/>
+
+                    <!-- Right mini sorting bars + shortest path -->
+                    <rect x="255" y="115" width="22" height="58" rx="4" fill="#22c55e"/>
+                    <rect x="285" y="92" width="22" height="81" rx="4" fill="#22c55e"/>
+                    <rect x="315" y="62" width="22" height="111" rx="4" fill="#f59e0b"/>
+                    <rect x="345" y="78" width="22" height="95" rx="4" fill="#ef4444"/>
+                    <rect x="375" y="40" width="22" height="133" rx="4" fill="#6366f1"/>
+                    <text x="336" y="26" fill="#94a3b8" font-size="10" font-family="Consolas, monospace" text-anchor="middle">Step 14 / 24 · O(n log n)</text>
+                </svg>
+
+                <div class="preview-code-strip">
+                    <span>if (key &lt; node.key) return search(node.left, key);</span>
+                    <span class="badge">O(log n)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. PLATFORM STATISTICS
+    =========================================== -->
+    <section class="stats-bar" aria-label="Platform statistics">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" aria-hidden="true">⚡</div>
+                <div>
+                    <strong>24 Visualizer Pages</strong>
+                    <span>27 Interactive Algorithm Entries</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" aria-hidden="true">🗂️</div>
+                <div>
+                    <strong>6 Core Categories</strong>
+                    <span>Sorting, Search, Linear, Lists, Trees, Graphs</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" aria-hidden="true">☕</div>
+                <div>
+                    <strong>100% Real Java</strong>
+                    <span>Compilable code with active line sync</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon" aria-hidden="true">🧭</div>
+                <div>
+                    <strong>3-Stage Roadmap</strong>
+                    <span>Structured Beginner → Advanced path</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         4 & 6. SEARCH, FILTERS & CATEGORY-WISE ALGORITHMS
+    =========================================== -->
+    <section class="section" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Structured Curriculum</span>
+                    <h2>Explore Visualizers by Category</h2>
+                    <p class="section-subtitle">
+                        Every algorithm and data structure is organized in a progressive learning sequence.
+                        Use the search bar or combine category and difficulty filters below.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Functional Search & Combined Filter System -->
+            <div class="filter-toolbar" id="search-filters" role="region" aria-label="Search and filter algorithms">
+                <div class="filter-top-row">
+                    <div class="search-box">
+                        <span class="search-box-icon" aria-hidden="true">⌕</span>
+                        <input
+                            type="search"
+                            id="algorithmSearch"
+                            class="search-input"
+                            placeholder="Search by name or keyword (e.g. Bubble Sort, Binary Search, Tree, BFS, Dijkstra)..."
+                            aria-label="Search algorithms and data structures"
+                            autocomplete="off"
+                        >
+                        <button type="button" id="clearSearchBtn" class="clear-search-btn hidden" title="Clear search" aria-label="Clear search">✕</button>
+                    </div>
+
+                    <div class="difficulty-filters" role="group" aria-label="Filter by difficulty">
+                        <span class="filter-label">Difficulty:</span>
+                        <button type="button" class="filter-chip is-active" data-filter-difficulty="all" aria-pressed="true">All Levels</button>
+                        <button type="button" class="filter-chip" aria-pressed="false" data-filter-difficulty="beginner">Beginner</button>
+                        <button type="button" class="filter-chip" aria-pressed="false" data-filter-difficulty="intermediate">Intermediate</button>
+                        <button type="button" class="filter-chip" aria-pressed="false" data-filter-difficulty="advanced">Advanced</button>
+                    </div>
+                </div>
+
+                <div class="category-filters" role="group" aria-label="Filter by category">
+                    <span class="filter-label">Category:</span>
+                    <button type="button" class="filter-chip is-active" data-filter-category="all" aria-pressed="true">All (27)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="sorting">01 · Sorting (6)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="searching">02 · Searching (2)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="stack-queue">03 · Stack &amp; Queue (6)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="linked-list">04 · Linked Lists (4)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="trees">05 · Trees (5)</button>
+                    <button type="button" class="filter-chip" aria-pressed="false" data-filter-category="graphs">06 · Graphs (4)</button>
+                </div>
+
+                <div class="filter-status-bar">
+                    <span id="filterResultCount" role="status" aria-live="polite" aria-atomic="true">Showing all 27 algorithm entries across 24 visualizer pages (6 categories)</span>
+                    <button type="button" id="resetFiltersBtn" class="reset-filters-link hidden">Reset all filters ↺</button>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 01: SORTING ALGORITHMS
+            =========================================== -->
+            <div class="category-block" id="cat-sorting" data-category-section="sorting">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 01</span>
+                        <span class="category-icon" aria-hidden="true">📊</span>
+                        <div>
+                            <h3>Sorting Algorithms</h3>
+                            <p class="category-desc">Start with fundamental O(n²) comparison sorts and progress to divide-and-conquer O(n log n) algorithms.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">6 Visualizers</span>
+                        <span class="meta-pill">Beginner → Advanced</span>
+                        <a href="bubble_sort.html" class="category-explore-link">Start Category →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Bubble Sort -->
+                    <a class="algo-card" href="bubble_sort.html" data-category="sorting" data-difficulty="beginner" data-search="bubble sort sorting adjacent swap comparison beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🫧</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>1. Bubble Sort</h4>
+                        <p>Repeatedly compare adjacent elements and swap them if they are in the wrong order until the largest values bubble to the end.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n²)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Selection Sort -->
+                    <a class="algo-card" href="selection_sort.html" data-category="sorting" data-difficulty="beginner" data-search="selection sort sorting minindex minimum swap prefix beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">👆</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>2. Selection Sort</h4>
+                        <p>Scan the unsorted suffix to find the minimum element and swap it into the next position of the sorted prefix.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n²)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Insertion Sort -->
+                    <a class="algo-card" href="insertion_sort.html" data-category="sorting" data-difficulty="beginner" data-search="insertion sort sorting key shift cards online beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🃏</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>3. Insertion Sort</h4>
+                        <p>Pick the next unsorted key and shift larger sorted elements one slot right to insert the key in its exact order.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n²)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. Merge Sort -->
+                    <a class="algo-card" href="merge_sort.html" data-category="sorting" data-difficulty="intermediate" data-search="merge sort sorting divide and conquer recursion tree stable intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🧩</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>4. Merge Sort</h4>
+                        <p>Recursively split the array in half down to single elements, then merge sorted halves back together with a live recursion tree.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n log n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 5. Quick Sort -->
+                    <a class="algo-card" href="quick_sort.html" data-category="sorting" data-difficulty="advanced" data-search="quick sort sorting pivot lomuto partition recursion divide conquer advanced">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">⚡</div>
+                            <span class="diff-badge diff-advanced">Advanced</span>
+                        </div>
+                        <h4>5. Quick Sort</h4>
+                        <p>Select a pivot element, partition smaller elements to the left and larger elements to the right, and recursively sort subarrays.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Avg: <strong>O(n log n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(log n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 6. Heap Sort -->
+                    <a class="algo-card" href="heap_sort.html" data-category="sorting" data-difficulty="advanced" data-search="heap sort sorting max heap heapify binary tree in place advanced">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🌳</div>
+                            <span class="diff-badge diff-advanced">Advanced</span>
+                        </div>
+                        <h4>6. Heap Sort</h4>
+                        <p>Turn the array into a Max-Heap in O(n) time, then repeatedly swap the root maximum to the end and repair the heap.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n log n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 02: SEARCHING ALGORITHMS
+            =========================================== -->
+            <div class="category-block" id="cat-searching" data-category-section="searching">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 02</span>
+                        <span class="category-icon" aria-hidden="true">🔎</span>
+                        <div>
+                            <h3>Searching Algorithms</h3>
+                            <p class="category-desc">Compare sequential O(n) scanning on unsorted data with logarithmic O(log n) interval halving on sorted arrays.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">2 Visualizers</span>
+                        <span class="meta-pill">Beginner → Intermediate</span>
+                        <a href="linear_search.html" class="category-explore-link">Start Category →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Linear Search -->
+                    <a class="algo-card" href="linear_search.html" data-category="searching" data-difficulty="beginner" data-search="linear search sequential scan target array index beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🔎</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>1. Linear Search</h4>
+                        <p>Inspect elements one by one from index 0 until the target value is found or the array ends. Works on any unsorted array.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Binary Search -->
+                    <a class="algo-card" href="binary_search.html" data-category="searching" data-difficulty="intermediate" data-search="binary search sorted array low mid high divide half logarithmic intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🎯</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>2. Binary Search</h4>
+                        <p>Compare the target with the middle element of a sorted array and eliminate half of the remaining search range at every step.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(log n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 03: STACK & QUEUE
+            =========================================== -->
+            <div class="category-block" id="cat-stack-queue" data-category-section="stack-queue">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 03</span>
+                        <span class="category-icon" aria-hidden="true">📚</span>
+                        <div>
+                            <h3>Stack &amp; Queue</h3>
+                            <p class="category-desc">Master LIFO stacks, expression validation, and FIFO linear, circular, priority, and double-ended queues.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">6 Visualizers</span>
+                        <span class="meta-pill">Beginner → Intermediate</span>
+                        <a href="stack.html" class="category-explore-link">Start Category →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Stack -->
+                    <a class="algo-card" href="stack.html" data-category="stack-queue" data-difficulty="beginner" data-search="stack lifo push pop peek overflow underflow top pointer beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">📚</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>1. Stack (LIFO)</h4>
+                        <p>Push, pop, and peek on an array-backed Last-In, First-Out stack while watching the top pointer and overflow/underflow checks.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Queue -->
+                    <a class="algo-card" href="queue.html" data-category="stack-queue" data-difficulty="beginner" data-search="queue simple linear fifo enqueue dequeue front rear pointers beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🎟️</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>2. Simple Queue (FIFO)</h4>
+                        <p>Enqueue at the rear and dequeue from the front of a linear array queue with live front and rear pointer tracking.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Circular Queue -->
+                    <a class="algo-card" href="circular_queue.html" data-category="stack-queue" data-difficulty="intermediate" data-search="circular queue ring buffer modulo wrap around front rear fifo intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🔄</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>3. Circular Queue</h4>
+                        <p>Wrap front and rear pointers around a circular ring using (index + 1) % capacity so freed slots are reused without shifting.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. Priority Queue -->
+                    <a class="algo-card" href="priority_queue.html" data-category="stack-queue" data-difficulty="intermediate" data-search="priority queue p1 p9 highest priority sorted insert shift dequeue intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🏅</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>4. Priority Queue</h4>
+                        <p>Enqueue items with priorities P1 (highest) to P9 (lowest) and watch elements shift to keep the highest priority at the front.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Enqueue/Dequeue: <strong>O(n)</strong></span>
+                            <span class="comp-tag">Peek: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 5. Deque -->
+                    <a class="algo-card" href="deque.html" data-category="stack-queue" data-difficulty="intermediate" data-search="deque double ended queue addfront addrear removefront removerear ring intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">↔️</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>5. Double-Ended Queue (Deque)</h4>
+                        <p>Insert and remove elements at both the front and rear ends in O(1) time on a circular array ring view.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 6. Balanced Brackets -->
+                    <a class="algo-card" href="balanced_brackets.html" data-category="stack-queue" data-difficulty="intermediate" data-search="balanced brackets parentheses checker stack application expression matching intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🧮</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>6. Balanced Brackets</h4>
+                        <p>Real-world stack application: push opening brackets ( [ { and match them against closing partners ) ] } in LIFO order.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 04: LINKED LISTS
+            =========================================== -->
+            <div class="category-block" id="cat-linked-list" data-category-section="linked-list">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 04</span>
+                        <span class="category-icon" aria-hidden="true">🔗</span>
+                        <div>
+                            <h3>Linked Lists</h3>
+                            <p class="category-desc">Visualize heap node allocation, head/tail pointers, and next/prev reference rewiring across all four list topologies.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">4 Visualizers</span>
+                        <span class="meta-pill">Intermediate</span>
+                        <a href="linked_list.html" class="category-explore-link">Start Category →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Singly Linked List -->
+                    <a class="algo-card" href="linked_list.html" data-category="linked-list" data-difficulty="intermediate" data-search="singly linked list node next pointer head insert delete search intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🔗</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>1. Singly Linked List</h4>
+                        <p>Each node stores data and a next pointer ending at null. Trace insert/delete at beginning, end, or index and linear search.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Head: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Tail/Search: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Doubly Linked List -->
+                    <a class="algo-card" href="doubly_linked_list.html" data-category="linked-list" data-difficulty="intermediate" data-search="doubly linked list prev next bidirectional pointers node intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">⇄</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>2. Doubly Linked List</h4>
+                        <p>Nodes maintain both next and prev pointers, enabling bidirectional traversal and cleaner node unlinking.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Head: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Tail/Index: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Circular Linked List -->
+                    <a class="algo-card" href="circular_linked_list.html" data-category="linked-list" data-difficulty="intermediate" data-search="circular linked list tail points to head cycle ring intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🔁</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>3. Circular Linked List</h4>
+                        <p>The last node's next pointer wraps back to head instead of null, forming a continuous single-direction loop.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Insert/Delete: <strong>O(n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. Doubly Circular Linked List -->
+                    <a class="algo-card" href="doubly_circular_linked_list.html" data-category="linked-list" data-difficulty="intermediate" data-search="doubly circular linked list head prev tail next o1 ends intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">♾️</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>4. Doubly Circular Linked List</h4>
+                        <p>Both tail.next and head.prev wrap around in a full bidirectional ring, allowing O(1) access to both ends via head.prev.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Beg/End: <strong>O(1)</strong></span>
+                            <span class="comp-tag">Index/Search: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 05: TREES
+            =========================================== -->
+            <div class="category-block" id="cat-trees" data-category-section="trees">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 05</span>
+                        <span class="category-icon" aria-hidden="true">🌲</span>
+                        <div>
+                            <h3>Trees &amp; Hierarchical Structures</h3>
+                            <p class="category-desc">Explore hierarchical data from Binary Search Trees and DFS/BFS traversals to Heaps, self-balancing AVL rotations, and Tries.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">5 Visualizers</span>
+                        <span class="meta-pill">Beginner → Advanced</span>
+                        <a href="bst.html" class="category-explore-link">Start Category →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Binary Search Tree -->
+                    <a class="algo-card" href="bst.html" data-category="trees" data-difficulty="intermediate" data-search="binary search tree bst insert delete search inorder successor min max intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🌲</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>1. Binary Search Tree (BST)</h4>
+                        <p>Insert, search, find min/max, and delete nodes (leaf, 1-child, and 2-children with inorder successor replacement).</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Avg: <strong>O(log n)</strong></span>
+                            <span class="comp-tag">Worst: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Tree Traversals -->
+                    <a class="algo-card" href="tree_traversals.html" data-category="trees" data-difficulty="beginner" data-search="tree traversals inorder preorder postorder level order bfs dfs call stack queue beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🧭</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>2. Tree Traversals</h4>
+                        <p>Step through Inorder (L-N-R), Preorder (N-L-R), Postorder (L-R-N), and Level-Order (BFS) with live Call Stack &amp; Queue views.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(n)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(h) / O(w)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Min / Max Heap -->
+                    <a class="algo-card" href="heap.html" data-category="trees" data-difficulty="intermediate" data-search="min max heap binary heap sift up sift down extract root buildheap priority queue intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">⛰️</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>3. Min / Max Heap</h4>
+                        <p>Insert (sift-up), extract root (sift-down), peek in O(1), and run Floyd's O(n) buildHeap on a synced SVG tree and backing array.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Insert/Extract: <strong>O(log n)</strong></span>
+                            <span class="comp-tag">Build: <strong>O(n)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. AVL Tree -->
+                    <a class="algo-card" href="avl_tree.html" data-category="trees" data-difficulty="advanced" data-search="avl tree self balancing bst balance factor rotations ll rr lr rl height advanced">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">⚖️</div>
+                            <span class="diff-badge diff-advanced">Advanced</span>
+                        </div>
+                        <h4>4. AVL Tree</h4>
+                        <p>Self-balancing BST that tracks node heights and balance factors (bf), performing single (LL, RR) and double (LR, RL) rotations.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(log n)</strong></span>
+                            <span class="comp-tag">Rotations: <strong>O(1)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 5. Trie -->
+                    <a class="algo-card" href="trie.html" data-category="trees" data-difficulty="intermediate" data-search="trie prefix tree autocomplete word search startswith delete pruning dictionary intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🔤</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>5. Trie (Prefix Tree)</h4>
+                        <p>Multi-way character tree for O(L) word insertion, exact search, prefix autocomplete (startsWith), and bottom-up node pruning.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(L)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(Σ · N)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 CATEGORY 06: GRAPH ALGORITHMS
+            =========================================== -->
+            <div class="category-block" id="cat-graphs" data-category-section="graphs">
+                <div class="category-head">
+                    <div class="category-title-group">
+                        <span class="category-num">CATEGORY 06</span>
+                        <span class="category-icon" aria-hidden="true">🕸️</span>
+                        <div>
+                            <h3>Graph Algorithms</h3>
+                            <p class="category-desc">Build custom directed/undirected &amp; weighted graphs and trace traversal and shortest-path algorithms with live queues and distance tables.</p>
+                        </div>
+                    </div>
+                    <div class="category-meta-group">
+                        <span class="meta-pill">4 Algorithms in Graph Studio</span>
+                        <span class="meta-pill">Beginner → Advanced</span>
+                        <a href="graph.html" class="category-explore-link">Open Graph Studio →</a>
+                    </div>
+                </div>
+
+                <div class="cards-grid">
+                    <!-- 1. Breadth-First Search (BFS) -->
+                    <a class="algo-card" href="graph.html?algo=bfs" data-category="graphs" data-difficulty="beginner" data-search="breadth first search bfs graph traversal queue level order unweighted shortest path beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🌊</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>1. Breadth-First Search (BFS)</h4>
+                        <p>Explore graph vertices in concentric waves using a FIFO Queue. Guarantees the shortest path in unweighted graphs.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(V + E)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(V)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. Depth-First Search (DFS) -->
+                    <a class="algo-card" href="graph.html?algo=dfs" data-category="graphs" data-difficulty="beginner" data-search="depth first search dfs iterative recursive stack backtracking graph traversal beginner">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🧭</div>
+                            <span class="diff-badge diff-beginner">Beginner</span>
+                        </div>
+                        <h4>2. Depth-First Search (DFS)</h4>
+                        <p>Plunge deep along each branch using a LIFO Stack or recursive call frames before backtracking to unvisited neighbors.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O(V + E)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(V)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 3. Dijkstra's Algorithm -->
+                    <a class="algo-card" href="graph.html?algo=dijkstra" data-category="graphs" data-difficulty="intermediate" data-search="dijkstra shortest path weighted graph priority queue edge relaxation distance table intermediate">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">🛣️</div>
+                            <span class="diff-badge diff-intermediate">Intermediate</span>
+                        </div>
+                        <h4>3. Dijkstra's Algorithm</h4>
+                        <p>Find the shortest path from a source vertex in non-negative weighted graphs using a Min-Priority Queue and edge relaxation.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O((V + E) log V)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(V)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+
+                    <!-- 4. A* Search Algorithm -->
+                    <a class="algo-card" href="graph.html?algo=astar" data-category="graphs" data-difficulty="advanced" data-search="a star a* search heuristic f g h open set closed set goal directed shortest path advanced">
+                        <div class="card-header">
+                            <div class="card-icon" aria-hidden="true">⭐</div>
+                            <span class="diff-badge diff-advanced">Advanced</span>
+                        </div>
+                        <h4>4. A* Search Algorithm</h4>
+                        <p>Goal-directed shortest-path search that prioritizes vertices by f(n) = g(n) + h(n) with live Open Set and Closed Set tracking.</p>
+                        <div class="card-complexities">
+                            <span class="comp-tag">Time: <strong>O((V + E) log V)</strong></span>
+                            <span class="comp-tag">Space: <strong>O(V)</strong></span>
+                        </div>
+                        <div class="card-footer">
+                            <span>Explore Visualizer</span>
+                            <span class="card-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty State when no search/filter matches -->
+            <div class="empty-search-state hidden" id="noResults" role="status" aria-live="polite">
+                <h3>No matching visualizers found</h3>
+                <p>Try searching for another keyword (e.g., "sort", "tree", "queue", "dijkstra") or clear active filters.</p>
+                <button type="button" id="emptyStateResetBtn" class="btn btn-primary">Reset Search &amp; Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         5. INTERACTIVE DSA LEARNING ROADMAP
+    =========================================== -->
+    <section class="section" id="roadmap">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Step-by-Step Progression</span>
+                    <h2>Your DSA Learning Journey</h2>
+                    <p class="section-subtitle">
+                        Not sure where to begin? Follow this structured 3-level roadmap from foundational array
+                        operations to self-balancing trees and shortest-path graph algorithms. Click any topic to open its visualizer.
+                    </p>
+                </div>
+            </div>
+
+            <div class="roadmap-grid">
+                <!-- LEVEL 01: BEGINNER -->
+                <div class="roadmap-stage">
+                    <div class="stage-head">
+                        <div>
+                            <span class="stage-level" style="color: var(--success);">LEVEL 01 · FOUNDATION</span>
+                            <div class="stage-title">Beginner</div>
+                        </div>
+                        <span class="diff-badge diff-beginner">Start Here</span>
+                    </div>
+                    <p class="stage-prereq">Prerequisites: Basic arrays, loops, and conditionals in Java.</p>
+
+                    <div class="roadmap-steps">
+                        <a href="bubble_sort.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">1</span>
+                                <div class="rm-node-info">
+                                    <strong>Basic Sorting (Bubble, Selection, Insertion)</strong>
+                                    <small>Nested loops, adjacent swaps &amp; sorted prefixes</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="linear_search.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">2</span>
+                                <div class="rm-node-info">
+                                    <strong>Linear Search</strong>
+                                    <small>Sequential O(n) array scanning</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="binary_search.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">3</span>
+                                <div class="rm-node-info">
+                                    <strong>Binary Search</strong>
+                                    <small>Logarithmic O(log n) range halving on sorted data</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="stack.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">4</span>
+                                <div class="rm-node-info">
+                                    <strong>Stack &amp; Balanced Brackets</strong>
+                                    <small>LIFO operations &amp; expression parsing</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="queue.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">5</span>
+                                <div class="rm-node-info">
+                                    <strong>Queues (Simple, Circular, Deque)</strong>
+                                    <small>FIFO scheduling &amp; modulo ring buffers</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- LEVEL 02: INTERMEDIATE -->
+                <div class="roadmap-stage">
+                    <div class="stage-head">
+                        <div>
+                            <span class="stage-level" style="color: var(--warning);">LEVEL 02 · CORE STRUCTURES</span>
+                            <div class="stage-title">Intermediate</div>
+                        </div>
+                        <span class="diff-badge diff-intermediate">Next Stage</span>
+                    </div>
+                    <p class="stage-prereq">Prerequisites: Level 01 (Stacks, Queues &amp; Binary Search).</p>
+
+                    <div class="roadmap-steps">
+                        <a href="linked_list.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">6</span>
+                                <div class="rm-node-info">
+                                    <strong>Linked Lists (Singly, Doubly, Circular)</strong>
+                                    <small>Dynamic nodes &amp; pointer manipulation</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="merge_sort.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">7</span>
+                                <div class="rm-node-info">
+                                    <strong>Recursion &amp; Merge Sort</strong>
+                                    <small>Divide-and-conquer recursion trees</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="tree_traversals.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">8</span>
+                                <div class="rm-node-info">
+                                    <strong>Tree Fundamentals &amp; Traversals</strong>
+                                    <small>Inorder, Preorder, Postorder (DFS) &amp; Level-Order (BFS)</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="bst.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">9</span>
+                                <div class="rm-node-info">
+                                    <strong>Binary Search Tree (BST)</strong>
+                                    <small>O(log n) hierarchical insert, search &amp; successor delete</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="trie.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">10</span>
+                                <div class="rm-node-info">
+                                    <strong>Trie (Prefix Tree)</strong>
+                                    <small>Fast prefix matching &amp; dictionary autocomplete</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- LEVEL 03: ADVANCED -->
+                <div class="roadmap-stage">
+                    <div class="stage-head">
+                        <div>
+                            <span class="stage-level" style="color: var(--purple);">LEVEL 03 · MASTERY</span>
+                            <div class="stage-title">Advanced</div>
+                        </div>
+                        <span class="diff-badge diff-advanced">Mastery</span>
+                    </div>
+                    <p class="stage-prereq">Prerequisites: Level 02 (Recursion, Trees &amp; Priority Queues).</p>
+
+                    <div class="roadmap-steps">
+                        <a href="quick_sort.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">11</span>
+                                <div class="rm-node-info">
+                                    <strong>Advanced Sorting (Quick Sort &amp; Heap Sort)</strong>
+                                    <small>In-place partitioning &amp; heap-based sorting</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="heap.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">12</span>
+                                <div class="rm-node-info">
+                                    <strong>Min / Max Binary Heaps</strong>
+                                    <small>Complete binary trees, sift-up/down &amp; O(n) buildHeap</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="avl_tree.html" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">13</span>
+                                <div class="rm-node-info">
+                                    <strong>Self-Balancing AVL Trees</strong>
+                                    <small>Balance factors &amp; LL, RR, LR, RL rotations</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="graph.html?algo=bfs" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">14</span>
+                                <div class="rm-node-info">
+                                    <strong>Graph Traversals (BFS &amp; DFS)</strong>
+                                    <small>Adjacency lists, connected components &amp; backtracking</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+
+                        <a href="graph.html?algo=dijkstra" class="roadmap-node">
+                            <div class="rm-node-left">
+                                <span class="rm-step-num">15</span>
+                                <div class="rm-node-info">
+                                    <strong>Shortest Path (Dijkstra &amp; A* Search)</strong>
+                                    <small>Edge relaxation, priority queues &amp; heuristics</small>
+                                </div>
+                            </div>
+                            <span class="rm-node-go">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         7. WHY ALGOLAB?
+    =========================================== -->
+    <section class="section" id="why-algolab">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Three-Panel Learning Architecture</span>
+                    <h2>Why Learn with AlgoLab?</h2>
+                    <p class="section-subtitle">
+                        Static textbook diagrams hide intermediate states. AlgoLab connects every line of Java code
+                        to its exact visual transformation and plain-English reasoning.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">💻</div>
+                    <h3>1. Synchronized Java Code</h3>
+                    <p>
+                        Watch the active yellow highlight step through real, compilable Java methods as each comparison,
+                        pointer update, recursive call, or rotation executes.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🎬</div>
+                    <h3>2. Interactive Visual Canvas</h3>
+                    <p>
+                        Inspect live arrays, linked-list heap pointers, SVG trees, and draggable graphs with
+                        consistent color coding for active, visited, and modified states.
+                    </p>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">💡</div>
+                    <h3>3. Plain-English Explanations</h3>
+                    <p>
+                        Every single step explains what just happened, which variables were involved, and why
+                        that line of code ran—eliminating guesswork.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         8. LEARNING FEATURES
+    =========================================== -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Built-In Developer Tools</span>
+                    <h2>Interactive Learning Features on Every Page</h2>
+                    <p class="section-subtitle">
+                        Every visualizer page includes a unified suite of learning tools powered by AlgoLab's shared enhancement engine.
+                    </p>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">⏮️</div>
+                    <h3>Full Step Timeline (Prev / Next / Replay)</h3>
+                    <p>Step backward and forward through any operation at your own pace, or adjust the speed slider from Slow to Fast.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🧠</div>
+                    <h3>Interactive Quiz Mode</h3>
+                    <p>Enable Quiz Mode on any visualizer to predict what the next step will do before advancing the animation.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🔍</div>
+                    <h3>Live Variable Watch &amp; Counters</h3>
+                    <p>Track loop indices, pointers, balance factors, queue/stack states, comparison counts, and swaps in real time.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">⌨️</div>
+                    <h3>Keyboard Shortcuts</h3>
+                    <p>Navigate effortlessly with Arrow keys (Next / Previous), Space (Play / Pause), R (Reset), and ? (Help modal).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">📋</div>
+                    <h3>One-Click Java Copy &amp; Share Links</h3>
+                    <p>Copy the complete Java implementation to your clipboard or share a direct link preloaded with your custom input array.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">🌓</div>
+                    <h3>Synced Dark &amp; Light Themes</h3>
+                    <p>Switch seamlessly between a high-contrast developer dark theme and a clean classroom light theme across all 24 visualizer pages (27 algorithm entries).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         9. COMPLEXITY GUIDE
+    =========================================== -->
+    <section class="section" id="complexity-guide">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">Big-O Quick Reference</span>
+                    <h2>Algorithm Complexity Guide</h2>
+                    <p class="section-subtitle">
+                        Compare how running time and memory usage scale as input size (n) or graph size (V, E) grows.
+                    </p>
+                </div>
+            </div>
+
+            <div class="complexity-table-wrap">
+                <table class="complexity-table">
+                    <thead>
+                        <tr>
+                            <th>Complexity</th>
+                            <th>Growth Class</th>
+                            <th>100 Items (approx. ops)</th>
+                            <th>AlgoLab Visualizers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>O(1)</code></td>
+                            <td>Constant Time</td>
+                            <td>1 operation</td>
+                            <td>Stack Push/Pop/Peek, Queue Enqueue/Dequeue, Linked List Head Insert, Heap Peek</td>
+                        </tr>
+                        <tr>
+                            <td><code>O(log n)</code></td>
+                            <td>Logarithmic Time</td>
+                            <td>~7 operations</td>
+                            <td>Binary Search, BST Insert/Search/Delete (avg), Min/Max Heap Insert/Extract, AVL Tree</td>
+                        </tr>
+                        <tr>
+                            <td><code>O(L)</code></td>
+                            <td>Word-Length Linear</td>
+                            <td>L character steps</td>
+                            <td>Trie (Prefix Tree) Insert, Search, startsWith Autocomplete, Delete</td>
+                        </tr>
+                        <tr>
+                            <td><code>O(n)</code></td>
+                            <td>Linear Time</td>
+                            <td>100 operations</td>
+                            <td>Linear Search, Balanced Brackets, Tree Traversals, Linked List Search, Floyd buildHeap</td>
+                        </tr>
+                        <tr>
+                            <td><code>O(V + E)</code></td>
+                            <td>Graph Linear</td>
+                            <td>V + E steps</td>
+                            <td>Graph Breadth-First Search (BFS), Depth-First Search (Iterative &amp; Recursive)</td>
+                        </tr>
+                        <tr>
+                            <td><code>O(n log n)</code></td>
+                            <td>Linearithmic Time</td>
+                            <td>~664 operations</td>
+                            <td>Merge Sort, Heap Sort, Quick Sort (average), Dijkstra &amp; A* Search <code>O((V+E) log V)</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>O(n²)</code></td>
+                            <td>Quadratic Time</td>
+                            <td>10,000 operations</td>
+                            <td>Bubble Sort, Selection Sort, Insertion Sort (worst/average), Quick Sort (worst case)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         10. FOOTER
+    =========================================== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div>
+                    <a href="#top" class="brand-logo">
+                        <span class="brand-mark" aria-hidden="true">⚡</span>
+                        Algo<span>Lab</span>
+                    </a>
+                    <p style="color: var(--muted); font-size: 13px; margin-top: 8px; max-width: 360px;">
+                        Interactive Data Structures and Algorithms learning platform with real Java implementations and step-by-step visualizations.
+                    </p>
+                </div>
+
+                <div class="footer-links-group" aria-label="Footer navigation">
+                    <a href="#cat-sorting">Sorting</a>
+                    <a href="#cat-searching">Searching</a>
+                    <a href="#cat-stack-queue">Stack &amp; Queue</a>
+                    <a href="#cat-linked-list">Linked Lists</a>
+                    <a href="#cat-trees">Trees</a>
+                    <a href="#cat-graphs">Graphs</a>
+                    <a href="#roadmap">Roadmap</a>
+                    <a href="#complexity-guide">Complexity Guide</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>© 2026 AlgoLab. Built with HTML5, CSS3, and Vanilla JavaScript.</span>
+                <span>24 Visualizer Pages · 27 Algorithm Entries · 6 DSA Categories</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/home.js"></script>
+</body>
+</html>

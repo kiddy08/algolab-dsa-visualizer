@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlgoLab | Quick Sort Visualizer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/enhance.css">
+</head>
+<body class="quick-page">
+
+<header class="topbar">
+    <div class="brand">
+        <h1>AlgoLab</h1>
+        <span>Interactive DSA Learning</span>
+    </div>
+
+    <div class="complexity">
+        <span>Time: <strong>O(n log n) average</strong></span>
+        <span>Space: <strong>O(log n) average</strong></span>
+    </div>
+    <a href="index.html" class="home-btn">⌂ Home</a>
+</header>
+
+<main class="dashboard">
+
+    <div class="page-heading">
+        <div>
+            <h2>Quick Sort Visualizer</h2>
+            <span class="page-info-badge" title="Watch how Quick Sort selects a pivot and partitions the array. Enter 2–12 whole numbers (1–999) separated by commas.">i</span>
+            <p>Watch how Quick Sort selects a pivot and partitions the array.</p>
+        </div>
+
+        <div class="legend">
+            <span><i class="dot orange"></i> Comparing</span>
+            <span><i class="dot red"></i> Swapping</span>
+            <span><i class="dot purple"></i> Pivot</span>
+            <span><i class="dot green"></i> Fixed</span>
+        </div>
+    </div>
+
+    <section class="search-settings">
+        <label for="arrayInput">Array:</label>
+        <input
+            type="text"
+            id="arrayInput"
+            value="40, 20, 70, 10, 50, 30"
+            placeholder="40, 20, 70, 10, 50, 30"
+            autocomplete="off"
+        >
+        <button class="btn primary" id="applyArrayBtn">Load Array</button>
+        <button class="btn secondary" id="randomBtn">New Array</button>
+        <span class="array-hint" id="arrayHint">
+            Enter 2–12 whole numbers (1–999) separated by commas.
+        </span>
+    </section>
+
+    <section class="workspace">
+
+        <!-- PANEL 1: JAVA CODE -->
+        <section class="panel code-panel">
+            <div class="panel-heading">
+                <h3>1. Java Code</h3>
+                <span class="panel-tag">QuickSort.java</span>
+            </div>
+
+            <div class="code-content">
+<pre><code><span class="code-line" data-line="1">void quickSort(int[] arr, int low, int high) {</span>
+<span class="code-line" data-line="2">    if (low &lt; high) {</span>
+<span class="code-line" data-line="3">        int p = partition(arr, low, high);</span>
+<span class="code-line" data-line="4">        quickSort(arr, low, p - 1);</span>
+<span class="code-line" data-line="5">        quickSort(arr, p + 1, high);</span>
+<span class="code-line" data-line="6">    }</span>
+<span class="code-line" data-line="7">}</span>
+<span class="code-line" data-line="8"></span>
+<span class="code-line" data-line="9">int partition(int[] arr, int low, int high) {</span>
+<span class="code-line" data-line="10">    int pivot = arr[high];</span>
+<span class="code-line" data-line="11">    int i = low - 1;</span>
+<span class="code-line" data-line="12">    for (int j = low; j &lt; high; j++) {</span>
+<span class="code-line" data-line="13">        if (arr[j] &lt;= pivot) {</span>
+<span class="code-line" data-line="14">            i++;</span>
+<span class="code-line" data-line="15">            int temp = arr[i];</span>
+<span class="code-line" data-line="16">            arr[i] = arr[j];</span>
+<span class="code-line" data-line="17">            arr[j] = temp;</span>
+<span class="code-line" data-line="18">        }</span>
+<span class="code-line" data-line="19">    }</span>
+<span class="code-line" data-line="20">    int temp = arr[i + 1];</span>
+<span class="code-line" data-line="21">    arr[i + 1] = arr[high];</span>
+<span class="code-line" data-line="22">    arr[high] = temp;</span>
+<span class="code-line" data-line="23">    return i + 1;</span>
+<span class="code-line" data-line="24">}</span></code></pre>
+            </div>
+
+            <div class="code-note">
+                <span class="active-line-icon"></span>
+                Yellow highlight = current line
+            </div>
+        </section>
+
+        <!-- PANEL 2: ARRAY VISUALIZATION -->
+        <section class="panel chart-panel">
+            <div class="panel-heading">
+                <h3>2. Array Visualization</h3>
+                <span class="panel-tag" id="status">Ready to sort</span>
+            </div>
+
+            <div class="chart-summary">
+                <span>Current operation</span>
+                <strong id="chartStep">Waiting to start</strong>
+            </div>
+
+            <div id="bars" class="bars"></div>
+
+            <p class="chart-caption" id="chartCaption">
+                Click Next Step to begin sorting.
+            </p>
+
+            <div class="pivot-info">
+                <span class="pivot-dot"></span>
+                <span>Pivot value</span>
+                <strong id="pivotValue">Not selected</strong>
+            </div>
+        </section>
+
+        <!-- PANEL 3: STEP EXPLANATION -->
+        <section class="panel explanation-panel">
+            <div class="panel-heading">
+                <h3>3. Understand This Line</h3>
+                <span class="panel-tag">Learn</span>
+            </div>
+
+            <div class="current-action">
+                <span class="eyebrow">CURRENT ACTION</span>
+                <h2 id="actionType">Ready to start</h2>
+                <p id="message">Click Next Step to begin learning Quick Sort.</p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Which values?</h4>
+                <p id="valuesInvolved">No values selected yet.</p>
+            </div>
+
+            <div class="detail-block why-block">
+                <h4>Why does this line run?</h4>
+                <p id="whyText">
+                    Quick Sort chooses a pivot and separates smaller and larger values.
+                </p>
+            </div>
+
+            <div class="detail-block">
+                <h4>Remember</h4>
+                <p id="tipText">
+                    Values less than or equal to the pivot go to its left.
+                </p>
+            </div>
+
+
+            <div class="tree-section">
+                <div class="panel-heading">
+                    <h3>Quick Sort Tree</h3>
+                    <span class="panel-tag">TREE ANIMATION</span>
+                </div>
+                <div class="algo-tree" id="quick-tree"></div>
+            </div>
+
+            <div class="step-counter">
+                <span id="stepCounter">Step 0</span>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- CONTROLS BELOW ALL THREE PANELS -->
+    <section class="control-bar">
+        <div class="control-label">
+            <strong>Control the animation</strong>
+            <span>Go at your own pace</span>
+        </div>
+
+        <div class="controls">
+            <button id="prevBtn" class="btn secondary" disabled>← Previous</button>
+            <button id="stepBtn" class="btn primary">Next Step →</button>
+            <button id="startBtn" class="btn success">▶ Start Sorting</button>
+            <button id="resetBtn" class="btn danger">Reset</button>
+        </div>
+    </section>
+
+</main>
+
+<script src="js/common.js"></script>
+<script src="js/quick_sort.js"></script>
+<script src="js/enhance.js"></script>
+</body>
+</html>
